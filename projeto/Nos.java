@@ -1,37 +1,94 @@
 package projeto;
 
-import java.util.ArrayList;
-
 public class Nos {
 
-    private ArrayList<Criatura> criaturas = new ArrayList<Criatura>();
     private Efeito efeito;
+    private Riqueza riqueza;
+    private Arma arma;
 
-    private Riqueza tesouro;
+    private boolean tesouro;
+    private boolean checkpoint;
 
-    public Nos(Criatura criaturas, Efeito efeito, boolean tesouro) {
+    //Construtor da classe
+    public Nos(Efeito efeito, Riqueza riqueza, boolean tesouro) {
 
-        this.criaturas.add(criaturas);
         this.efeito = efeito;
         this.tesouro = tesouro;
+        this.riqueza = riqueza;
+        this.arma = null;
+        this.checkpoint = false;
 
     }
 
-    public ArrayList<Criatura> getCriaturas() {
+    public Nos() {
 
-        return this.criaturas;
+        this.efeito = null;
+        this.riqueza = null;
+        this.arma = null;
+        this.tesouro = false;
+        this.checkpoint = false;
 
     }
-
+    
+    //Conjunto de gets
     public Efeito getEfeito() {
 
         return this.efeito;
 
     }
-    
-    public void batalhar() {
 
+    public Riqueza getRiqueza() {
+
+        return this.riqueza;
+
+    }
+
+    public Arma getArma() {
+
+        return this.arma;
+
+    }
         
+    public boolean isCheckPoint() {
+
+        return this.checkpoint;
+
+    }
+
+    public boolean isTesouro() {
+
+        return this.tesouro;
+
+    }
+
+    //Conjunto de sets
+    public void setEfeito(Efeito efeito) {
+
+        this.efeito = efeito;
+
+    }
+
+    public void setRiquesa(Riqueza riqueza) {
+
+        this.riqueza = riqueza;
+
+    }
+
+    public void setArma(Arma arma) {
+
+        this.arma = arma;
+
+    }
+
+    public void updateCheckPoint(boolean checkpoint) {
+
+        this.checkpoint = checkpoint;
+
+    }
+    
+    public void setTesouro(boolean tesouro) {
+
+        this.tesouro = tesouro;
 
     }
 
