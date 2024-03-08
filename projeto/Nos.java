@@ -7,7 +7,7 @@ public class Nos {
     private ArrayList<Criatura> criaturas = new ArrayList<Criatura>();
     private Efeito efeito;
 
-    private Riquesa tesouro;
+    private Riqueza tesouro;
 
     public Nos(Criatura criaturas, Efeito efeito, boolean tesouro) {
 
