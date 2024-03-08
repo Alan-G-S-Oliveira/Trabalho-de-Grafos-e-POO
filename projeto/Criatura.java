@@ -66,7 +66,7 @@ public abstract class Criatura {
 		if(arma != null) {
 			arma.atacar(alvo);
 		}else {
-			alvo.vida_atual -= força; //Quem usa arma é por que não se garante no soco.
+			alvo.receberDano(força); //Quem usa arma é por que não se garante no soco.
 		}
 	}
 	
