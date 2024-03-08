@@ -8,6 +8,7 @@ public class Jogador extends Criatura {
 	Colar colar; //Variavel responsavel por guardar o colar que o jogador esta utilisando.
 	Colar colar_check; ////Variavel responsavel por guardar a colar que o jogador esta usando no checkpoint.
 	int checkPoint; //Variavel responsavel por guardar o ultimo checkpoint que o jogador pegou.
+	Status status_check;
 	
 	Jogador(int vida_total,int forsa,Arma arma,int posisao,Status status,Colar colar,int checkPoint){
 		super(vida_total,forsa,arma,posisao,status);
@@ -43,9 +44,10 @@ public class Jogador extends Criatura {
 	
 	public void salvar_check() { //salva o estado do jogador ao passar pelo checkpoint.
 		posisao_check = getPosição();
-		arma_check = getArma();
+		arma_check = this.getArma().copy();
 		vida_atual_check = getVida_atual();
 		colar_check = colar;
+		status_check=this.getStatus().copy();
 	}
 	
 	public void renacer() { //Função responsavel por reviver o jogador.

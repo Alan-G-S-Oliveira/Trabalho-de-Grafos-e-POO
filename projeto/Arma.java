@@ -9,6 +9,7 @@ public abstract class Arma {
 	abstract public Arma copy();
 	public void atacar(Criatura a, int força) {
 		a.receberDano(força+this.getDano());
+		durabilidade--;
 	}
 	public int getDano() {
 		return dano;

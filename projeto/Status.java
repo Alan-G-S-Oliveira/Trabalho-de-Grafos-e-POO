@@ -4,6 +4,7 @@ public abstract class Status implements Efeito {
 	private String nome;
 	private String descricao;
 	
+	abstract public Status copy();
 	@Override
 	public void aplicarEfeito(Criatura a) {
 

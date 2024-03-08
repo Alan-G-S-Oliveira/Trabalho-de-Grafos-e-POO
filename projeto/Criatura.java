@@ -63,7 +63,7 @@ public abstract class Criatura {
 	}
 	
 	public void atacar(Criatura alvo) { //Função para infligir dano em uma criatura inimiga.
-		if(arma != null) {
+		if(arma != null&&this.arma.getDurabilidade()>0) {
 			arma.atacar(alvo,this.getForça());
 		}else {
 			alvo.receberDano(força); //Quem usa arma é por que não se garante no soco.
