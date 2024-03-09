@@ -59,6 +59,7 @@ public class Grafo {
             if(num.nextInt(10) < 3){
 
                 monstro = new Monstro();
+                monstro.setPosição(i);
                 criaturas.add(monstro);
                 nos[i] = new Nos();
             
