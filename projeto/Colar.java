@@ -8,6 +8,7 @@ public abstract class Colar implements Efeito{
 	public void aplicarEfeito(Criatura a) {
 		
 	}
+	abstract public Colar copy();
 	public String getNome() {
 		return nome;
 	}
