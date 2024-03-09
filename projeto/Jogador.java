@@ -1,4 +1,4 @@
-package POO;
+package projeto;
 
 public class Jogador extends Criatura {
 	int tesouro; //Variavel responsavel por guardar a quantidade de tesouro.

@@ -1,4 +1,4 @@
-package POO;
+package projeto;
 
 public abstract class Criatura {
 	private int vida_total; //Variavel responsavel por guardar a vida total da Criatura.
@@ -19,43 +19,43 @@ public abstract class Criatura {
 	public int getVida_total() {
 		return vida_total;
 	}
-	public void setVida_total(int vida) {
-		vida_total = vida;
+	public void setVida_total(int vida_total) {
+		this.vida_total = vida_total;
 	}
 	
 	public int getVida_atual() {
 		return vida_atual;
 	}
-	public void setVida_atual(int vida) {
-		vida_atual = vida;
+	public void setVida_atual(int vida_atual) {
+		this.vida_atual = vida_atual;
 	}
 	
 	public int getForça() {
 		return força;
 	}
-	public void setForça(int força_e) {
-		força = força_e;
+	public void setForça(int força) {
+		this.força = força;
 	}
 	
 	public int getPosição() {
 		return posição;
 	}
-	public void setPosição(int posição_e) {
-		posição = posição_e;
+	public void setPosição(int posição) {
+		this.posição = posição;
 	}
 	
 	public Arma getArma() {
 		return arma;
 	}
-	public void setArma(Arma arma_nova) {
-		arma = arma_nova;
+	public void setArma(Arma arma) {
+		this.arma = arma;
 	}
 	
 	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(Status status_novo) {
-		status = status_novo;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	public void receberDano(int dano) { //Função para dar dano imediato de armadilhas.
