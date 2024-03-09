@@ -6,18 +6,18 @@ public class Monstro extends Criatura {
 	String nome; //Variavel responsavel por guardar o nome atual do Monstro.
 	Random random = new Random();
 	
-	Monstro(){
+	Monstro(int total_vertices){ //refazer
 		int mostro = random.nextInt(4);
 		switch (4) {
 		case 0: {
 			this.nome = "depois eu penso em uns nomes legais";
 			int variação_vida = random.nextInt(25);
 			int variação_força = random.nextInt(10);
-			int variação_posição = random.nextInt(ler.lerInteiro());
+			int variação_posição = random.nextInt(total_vertices);
 			setVida_total(100+variação_vida);
 			setVida_atual(100+variação_vida);
 			setForça(20+variação_força);
-			setArma(garra);
+			setArma(new Arma());
 			setStatus(null);
 			setPosição(variação_posição);
 		}
@@ -25,11 +25,11 @@ public class Monstro extends Criatura {
 			this.nome = "depois eu penso em uns nomes legais";
 			int variação_vida = random.nextInt(25);
 			int variação_força = random.nextInt(10);
-			int variação_posição = random.nextInt(ler.lerInteiro());
+			int variação_posição = random.nextInt(total_vertices);
 			setVida_total(100+variação_vida);
 			setVida_atual(100+variação_vida);
 			setForça(20+variação_força);
-			setArma(garra);
+			setArma(new Arma());
 			setStatus(null);
 			setPosição(variação_posição);
 		}
@@ -37,11 +37,11 @@ public class Monstro extends Criatura {
 			this.nome = "depois eu penso em uns nomes legais";
 			int variação_vida = random.nextInt(25);
 			int variação_força = random.nextInt(10);
-			int variação_posição = random.nextInt(ler.lerInteiro());
+			int variação_posição = random.nextInt(total_vertices);
 			setVida_total(100+variação_vida);
 			setVida_atual(100+variação_vida);
 			setForça(20+variação_força);
-			setArma(garra);
+			setArma(new Arma());
 			setStatus(null);
 			setPosição(variação_posição);
 		}
@@ -49,11 +49,11 @@ public class Monstro extends Criatura {
 			this.nome = "depois eu penso em uns nomes legais";
 			int variação_vida = random.nextInt(25);
 			int variação_força = random.nextInt(10);
-			int variação_posição = random.nextInt(ler.lerInteiro());
+			int variação_posição = random.nextInt(total_vertices);
 			setVida_total(100+variação_vida);
 			setVida_atual(100+variação_vida);
 			setForça(20+variação_força);
-			setArma(garra);
+			setArma(new Arma());
 			setStatus(null);
 			setPosição(variação_posição);
 		}

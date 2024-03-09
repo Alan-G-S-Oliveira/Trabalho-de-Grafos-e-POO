@@ -7,6 +7,9 @@ public abstract class Criatura {
 	private Arma arma; //Variavel responsavel por guardar a arma atual da Criatura.
 	private int posição; //Variavel responsavel por guardar a posição atual da Criatura.
 	private Status status; //Variavel responsavel por guardar a status atual da Criatura.
+	Criatura(){
+		
+	}
 	Criatura(int vida_total,int força,Arma arma,int posição,Status status){
 		this.vida_total = vida_total;
 		this.vida_atual = vida_total;

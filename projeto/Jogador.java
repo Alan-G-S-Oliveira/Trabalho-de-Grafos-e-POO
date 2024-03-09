@@ -21,20 +21,19 @@ public class Jogador extends Criatura {
 		this.colar_check = colar;
 	}
 	
-	public int gettesouro() {
+	public int getTesouro() {
 		return tesouro;
 	}
-	public void settesouro(int tesouro) {
+	public void setTesouro(int tesouro) {
 		this.tesouro = tesouro;
 	}
 	
 	public Colar getColar() {
 		return colar;
 	}
-	public void setVida_total(int colar) {
-		this.colar = colar;
+	public void setColar(Colar colar) {
+		this.colar=colar;
 	}
-	
 	public int getCheckPoint() {
 		return checkPoint;
 	}
@@ -46,7 +45,7 @@ public class Jogador extends Criatura {
 		posisao_check = getPosição();
 		arma_check = this.getArma().copy();
 		vida_atual_check = getVida_atual();
-		colar_check = colar;
+		colar_check = this.getColar().copy();
 		status_check=this.getStatus().copy();
 	}
 	

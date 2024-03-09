@@ -12,6 +12,7 @@ public class Grafo {
     private ArrayList<Integer>[] adjacencias;
     private ArrayList<Criatura> criaturas;
     private int jogador;
+    private int totalVertices;
     
     public Grafo(String caminhoArquivo) throws FileNotFoundException {
 
@@ -251,5 +252,13 @@ public class Grafo {
         }
 
     }
+
+	public int getTotalVertices() {
+		return totalVertices;
+	}
+
+	public void setTotalVertices(int totalVertices) {
+		this.totalVertices = totalVertices;
+	}
 
 }
