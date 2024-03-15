@@ -4,10 +4,6 @@ public abstract class Colar implements Efeito{
 	private String nome;
 	private String descricao;
 	
-	@Override
-	public void aplicarEfeito(Criatura a) {
-		
-	}
 	abstract public Colar copy();
 	public String getNome() {
 		return nome;

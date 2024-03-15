@@ -1,5 +1,5 @@
 package projeto;
 
 public interface Riqueza {
-	public void receberRiqueza(Jogador a);
+	public Object receberRiqueza(Jogador a);
 }
