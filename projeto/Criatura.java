@@ -7,6 +7,7 @@ public abstract class Criatura {
 	private Arma arma; //Variavel responsavel por guardar a arma atual da Criatura.
 	private int posição; //Variavel responsavel por guardar a posição atual da Criatura.
 	private Status status; //Variavel responsavel por guardar a status atual da Criatura.
+	private boolean batalhou;
 	Criatura(){
 		
 	}
@@ -17,6 +18,14 @@ public abstract class Criatura {
 		this.arma = arma;
 		this.posição = posição;
 		this.status = status;
+		this.batalhou = false;
+	}
+	
+	public boolean getBatalhou() {
+		return this.batalhou;
+	}
+	public void setBatalhoul(boolean batalhou) {
+		this.batalhou = batalhou;
 	}
 	
 	public int getVida_total() {
@@ -77,10 +86,10 @@ public abstract class Criatura {
 		posição = nova_posisao;
 	}
 	
-	public float renaser(int local_nacimento) { //Função de renascimento mais usada na classe monstro.
+	public void reviver(int totalVertices) {
 		vida_atual = vida_total;
-		posição = local_nacimento;
-		return local_nacimento;
+		int variação_posição = random.nextInt(totalVertices);
+		posição = variação_posição;
 	}
 
 }
