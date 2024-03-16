@@ -25,6 +25,7 @@ public class EspadaVenenosa extends Arma implements Efeito {
 	@Override
 	public Arma copy() {
 		Arma copia=new EspadaVenenosa();
+		copia.setDurabilidade(this.getDurabilidade());
 		return copia;
 	}
 
