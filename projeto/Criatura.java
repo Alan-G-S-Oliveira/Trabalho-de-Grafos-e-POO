@@ -74,6 +74,14 @@ public abstract class Criatura {
 		vida_atual -= dano;
 	}
 	
+	public void receberCura(int cura) {
+		if((this.vida_atual + cura)<this.vida_total) {
+			this.vida_atual += cura;
+		}else {
+			this.setVida_atual(this.getVida_total());
+		}
+	}
+	
 	public void atacar(Criatura alvo) { //Função para infligir dano em uma criatura inimiga.
 		if(arma != null&&this.arma.getDurabilidade()>0) {
 			arma.atacar(alvo,this.getForça());

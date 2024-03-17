@@ -1,7 +1,7 @@
 package projeto;
 
 public class ColarCura extends Colar {
-	private int cura;
+	private int cura=10;
 	
 	public ColarCura() {
 		this.setNome("Benção de Rafael");
@@ -12,7 +12,7 @@ public class ColarCura extends Colar {
 
 	@Override
 	public void aplicarEfeito(Criatura a) {
-		a.curar(this.getCura()); //implemento curar depois pra n dar conflito de merge.
+		a.receberCura(this.getCura());
 	}
 
 	@Override

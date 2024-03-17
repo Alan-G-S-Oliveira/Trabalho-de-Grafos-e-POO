@@ -21,7 +21,7 @@ public class Monstro extends Criatura {
 			setVida_total(75+variação_vida);
 			setVida_atual(75+variação_vida);
 			setForça(10+variação_força);
-			setArma(new Arma());
+			setArma(new Rapiera());
 			setStatus(null);
 		}
 		case 2:{
@@ -35,7 +35,7 @@ public class Monstro extends Criatura {
 			setVida_total(100+variação_vida);
 			setVida_atual(100+variação_vida);
 			setForça(20+variação_força);
-			setArma(new Arma());
+			setArma(new Garra());
 			setStatus(null);
 		}
 		case 3:{
@@ -50,7 +50,7 @@ public class Monstro extends Criatura {
 			setVida_total(175+variação_vida);
 			setVida_atual(175+variação_vida);
 			setForça(12+variação_força);
-			setArma(new Arma());
+			setArma(new Ki());
 			setStatus(null);
 		}
 		case 4:{
@@ -64,7 +64,7 @@ public class Monstro extends Criatura {
 			setVida_total(25+variação_vida);
 			setVida_atual(25+variação_vida);
 			setForça(8+variação_força);
-			setArma(new Arma());
+			setArma(new Maleta());
 			setStatus(null);
 		}
 		default:
@@ -72,10 +72,10 @@ public class Monstro extends Criatura {
 		}
 	}
 	
-	public String getNome() {
+	public String getDescription() {
 		return this.description;
 	}
-	public void setNome(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 	

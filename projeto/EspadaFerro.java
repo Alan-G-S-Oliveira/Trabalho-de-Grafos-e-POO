@@ -10,7 +10,7 @@ public class EspadaFerro extends Arma {
 	}
 	@Override
 	public Arma copy() {
-		EspadaFerro copia= new EspadaFerro();
+		Arma copia= new EspadaFerro();
 		copia.setDurabilidade(this.getDurabilidade());
 		return copia;
 	}
