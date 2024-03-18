@@ -22,6 +22,19 @@ public class Jogo {
 
     }
 
+    //ACHO QUE TÁ DE BOA ESSE MÉTODO. QUALQUER COISA MUDO DEPOIS.
+    public ArrayList<Integer> copy() {
+
+        ArrayList<Integer> saida = new ArrayList<>();
+        
+        for(int i = 0; i < pilha.size(); i++)
+            saida.add(pilha.get(i));
+
+        return saida;
+
+    }
+
+    //Escolhe de forma aleatória a primeira posição para qual o jogador vai se mover a partir da praia.
     public void inicial() {
 
         marca = new String[ilha.getTotalVertices()];
@@ -40,6 +53,7 @@ public class Jogo {
         
     }
 
+    //Escolhe o próximo movimento do jogador e move todas as crituras.
     public void turno() {
         
         int v;
@@ -74,6 +88,7 @@ public class Jogo {
 
     }
 
+    //Prepara as criaturas que vão batalhar e faz a batalha.
     public void prepararBatalha() {
 
         ArrayList<Criatura> aux;
@@ -84,7 +99,8 @@ public class Jogo {
             if(aux.size() > 1) {
 
                 removeMenores(aux);
-                batalhar(aux.get(1), aux.get(0));
+                int[] batalha = buscaCriaturas(aux);
+                batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
 
             }
 
@@ -92,13 +108,17 @@ public class Jogo {
 
     }
 
-    //FAZER ALTERAÇÕES
+    //POSSIVELMENTE VOU FAZER ALGUMAS ALTERAÇÕES 
     public void batalhar(Criatura mob1, Criatura mob2) {
+
+        int x = mob1.getPosição();
 
         for(int i = 0; i < 3; i++) {
 
             if(mob1 instanceof Jogador) {
 
+                //O comando de atacar ou fugir vai vir do usuário, logo
+                //tô em dúvida se getAtacar() vai tá em jogador, ou em uma classe do front.
                 if(!mob1.getAtacar()) {
 
                     int v = pilha.getLast();
@@ -113,13 +133,18 @@ public class Jogo {
             mob1.atacar(mob2);
             if(mob2.getVida_atual() <= 0) {
 
-                mob2.morrer();
+                //ACHO QUE TÁ FUNCIONANDO.
+                ilha.getNo(x).removeCriatura(mob2);
+                mob2.reviver(ilha.getTotalVertices());
+                ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
                 break;
 
             }
 
             if(mob2 instanceof Jogador) {
 
+                //O comando de atacar ou fugir vai vir do usuário, logo
+                //tô em dúvida se getAtacar() vai tá em jogador, ou em uma classe do front.
                 if(!mob2.getAtacar()) {
 
                     int v = pilha.getLast();
@@ -134,15 +159,32 @@ public class Jogo {
             mob2.atacar(mob2);
             if(mob1.getVida_atual() <= 0) {
 
-                mob1.morrer();
+                //ACHO QUE TÁ FUNCIONANDO.
+                ilha.getNo(x).removeCriatura(mob1);
+                mob1.reviver(ilha.getTotalVertices());
+                ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
                 break;
 
-            } 
+            }
+
+            this.tempo--;
 
         }
 
+        mob1.setBatalhou(true);
+        mob2.setBatalhou(true);
+
+    }
+
+    //AINDA VOU FAZER.
+    //VAI TER 3 VALORES DE RETONO. -1 PARA DERROTA, 1 PARA VIÓRIA E 0 QUANDO O JOGO AINDA NÃO ACABOU.
+    public int verificaFim() {
+
+        return 98348;   //VALOR FODA-SE, SÓ PRA NÃO FICAR IMPLICANDO MAIS ERRO DO QUE JÁ TEM.
+
     }
  
+    //Faz as criaturas mais fracas fugirem do nó.
     private void removeMenores(ArrayList<Criatura> criaturas) {
 
         while(naoBatalhou(criaturas) > 2) {
@@ -170,6 +212,7 @@ public class Jogo {
 
     }
 
+    //Move as criaturas para outro nó.
     private void fugir(Criatura mob) {
 
         int v = -1;     //Posição padrão definida como -1.
@@ -182,7 +225,7 @@ public class Jogo {
         }
 
         ilha.moveCriatura(mob, v);  //Move, caso mob seja um monstro o valor v será ingnorado dentro do método. Caso contrário ele é utilizado.
-        mob.setBatalhou(true);      //Confirma que o jogador batalhour/fugiu nesse turno.
+        mob.setBatalhou(true);      //Confirma que o jogador batalhou/fugiu nesse turno.
 
     }
 
@@ -194,6 +237,27 @@ public class Jogo {
 
             if(!criaturas.get(i).getBatalhou())
                 saida++;
+
+        }
+
+        return saida;
+
+    }
+
+    //Busca as duas criaturas que vão batalhar em um nó.
+    private int[] buscaCriaturas(ArrayList<Criatura> criaturas) {
+
+        int[] saida = new int[2];
+
+        int cont = 0;
+        for(int i = 0; i < criaturas.size(); i++) {
+
+            if(!criaturas.get(i).getBatalhou()) {
+
+                saida[cont] = i;
+                cont++;
+
+            }
 
         }
 

@@ -7,7 +7,7 @@ public class Nos {
     private ArrayList<Criatura> criaturas;
     private Efeito efeito;
     private Riqueza riqueza;
-    private Arma arma;
+    private ArrayList<Arma> armas;
 
     private boolean tesouro;
     private boolean checkpoint;
@@ -18,9 +18,9 @@ public class Nos {
         this.efeito = efeito;
         this.tesouro = tesouro;
         this.riqueza = riqueza;
-        this.arma = null;
         this.checkpoint = false;
         this.criaturas = new ArrayList<>();
+        this.armas = new ArrayList<>();
 
     }
 
@@ -28,10 +28,10 @@ public class Nos {
 
         this.efeito = null;
         this.riqueza = null;
-        this.arma = null;
         this.tesouro = false;
         this.checkpoint = false;
         this.criaturas = new ArrayList<>();
+        this.armas = new ArrayList<>();
 
     }
     
@@ -48,9 +48,9 @@ public class Nos {
 
     }
 
-    public Arma getArma() {
+    public ArrayList<Arma> getArmas() {
 
-        return this.arma;
+        return this.armas;
 
     }
         
@@ -85,9 +85,9 @@ public class Nos {
 
     }
 
-    public void setArma(Arma arma) {
+    public void addArma(Arma arma) {
 
-        this.arma = arma;
+        this.armas.add(arma);
 
     }
 

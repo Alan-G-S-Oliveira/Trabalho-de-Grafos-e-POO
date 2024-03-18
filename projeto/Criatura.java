@@ -24,7 +24,7 @@ public abstract class Criatura {
 	public boolean getBatalhou() {
 		return this.batalhou;
 	}
-	public void setBatalhoul(boolean batalhou) {
+	public void setBatalhou(boolean batalhou) {
 		this.batalhou = batalhou;
 	}
 	

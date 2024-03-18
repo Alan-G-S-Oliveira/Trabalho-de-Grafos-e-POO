@@ -14,6 +14,7 @@ public class Grafo {
     private Jogador jogador;
     private int totalVertices;
     
+    //DEPOIS TENHO QUE MODULARIZAR ESSE CONTRUTOR MELHOR PARA FICAR MAIS LEGÍVEL.
     @SuppressWarnings("unchecked")
     public Grafo(String caminhoArquivo) throws FileNotFoundException {
 
@@ -49,7 +50,7 @@ public class Grafo {
         //Cria o vetor de nós, o inicializa com algumas criaturas e posiciona os tesouros.
         nos = new Nos[totalVertices];
         criaturas = new ArrayList<>();
-        jogador = new Jogador(100, 25, null, 0, null, null, -1);
+        jogador = new Jogador(100, 25, null, 0, null, null);
         criaturas.add(jogador);
 
         nos[0] = new Nos();
@@ -70,7 +71,6 @@ public class Grafo {
                 criaturas.add(monstro);
                 
             }
-            //PEDIR PARA PEDRO MUDAR A PARTE DE MOVER CRIATURAS.
 
         }
 
@@ -81,6 +81,10 @@ public class Grafo {
             nos[totalVertices - 1].setTesouro(true);
         else
             nos[adjacencias[totalVertices - 1].get(x)].setTesouro(true);
+
+        //Percorre todos os efeitos lidos no arquivo e os coloca em suas respectivas posições.
+        for(int i = 0; i < totalEfeitos; i++)
+            adcionarEfeito(efeitos[i]);
 
     }
 
@@ -148,6 +152,7 @@ public class Grafo {
 
     }
 
+    //Percorre a lista de criaturas e as move.
     public void movimentarCriaturas(int v) {
 
         Criatura mob;
@@ -162,6 +167,7 @@ public class Grafo {
 
     }
 
+    //Move uma criatura. Independente se for monstro ou o jogador.
     public void moveCriatura(Criatura mob, int v) {
 
         int posicaoAtual, novaPosicao;
@@ -169,6 +175,7 @@ public class Grafo {
         posicaoAtual = mob.getPosição();        //Pega sua posição atual.
         nos[posicaoAtual].removeCriatura(mob);  //Remove a criatura do seu nó atual.
 
+        //TENHO QUE FALAR COM PEDRO SOBRE ISSO.
         if(mob instanceof Monstro)
             novaPosicao = ((Monstro) (mob)).movimentar();   //Movimenta caso for monstro.  
         else
@@ -179,6 +186,7 @@ public class Grafo {
 
     }
 
+    //Verifica se um número específico está num vetor.
     private boolean procuraVetor(int[] vetor, int x) {
 
         for(int i = 0; i < vetor.length; i++) {
@@ -188,6 +196,23 @@ public class Grafo {
         }
 
         return false;
+
+    }
+
+    //Adciona o efeito a sua respectiva posição.
+    private void adcionarEfeito(String[] efeito) throws NumberFormatException{
+
+        int i = Integer.parseInt(efeito[1]);
+
+        switch (efeito[0]) {
+            case "Envenenado":
+                this.nos[i].setEfeito(new Envenenado());
+                break;
+            case "Queimado":
+                this.nos[i].setEfeito(new Queimado());
+            default:
+                break;
+        }
 
     }
 
