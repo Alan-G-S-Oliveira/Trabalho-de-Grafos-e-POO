@@ -1,7 +1,10 @@
 package projeto;
 
+import java.util.ArrayList;
+
 public class Nos {
 
+    private ArrayList<Criatura> criaturas;
     private Efeito efeito;
     private Riqueza riqueza;
     private Arma arma;
@@ -17,6 +20,7 @@ public class Nos {
         this.riqueza = riqueza;
         this.arma = null;
         this.checkpoint = false;
+        this.criaturas = new ArrayList<>();
 
     }
 
@@ -27,6 +31,7 @@ public class Nos {
         this.arma = null;
         this.tesouro = false;
         this.checkpoint = false;
+        this.criaturas = new ArrayList<>();
 
     }
     
@@ -61,6 +66,12 @@ public class Nos {
 
     }
 
+    public ArrayList<Criatura> getCriaturas() {
+
+        return this.criaturas;
+
+    }
+
     //Conjunto de sets
     public void setEfeito(Efeito efeito) {
 
@@ -89,6 +100,18 @@ public class Nos {
     public void setTesouro(boolean tesouro) {
 
         this.tesouro = tesouro;
+
+    }
+    
+    public void addCriaturas(Criatura criatura) {
+
+        this.criaturas.add(criatura);
+
+    }
+
+    public boolean removeCriatura(Criatura mob) {
+
+        return criaturas.remove(mob);
 
     }
 
