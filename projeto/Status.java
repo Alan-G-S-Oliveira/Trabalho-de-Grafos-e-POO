@@ -3,12 +3,10 @@ package projeto;
 public abstract class Status implements Efeito {
 	private String nome;
 	private String descricao;
+	private int duracao;
+	private int dano;
 	
 	abstract public Status copy();
-	@Override
-	public void aplicarEfeito(Criatura a) {
-
-	}
 	
 	public String getNome() {
 		return nome;
@@ -21,6 +19,20 @@ public abstract class Status implements Efeito {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	public int getDuracao() {
+		return duracao;
+	}
+	public void setDuracao(int duracao) {
+		this.duracao = duracao;
+	}
+
+	public int getDano() {
+		return dano;
+	}
+
+	public void setDano(int dano) {
+		this.dano = dano;
 	}
 
 }
