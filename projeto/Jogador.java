@@ -9,8 +9,8 @@ public class Jogador extends Criatura {
 	Colar colar_check; ////Variavel responsavel por guardar a colar que o jogador esta usando no checkpoint.
 	Status status_check;
 	
-	Jogador(int vida_total,int forsa,Arma arma,int posisao,Status status,Colar colar){
-		super(vida_total,forsa,arma,posisao,status);
+	Jogador(int vida_total,int forca,Arma arma,int posisao,Status status,Colar colar){
+		super(vida_total,forca,arma,posisao,status);
 		this.vida_atual_check = vida_total;
 		this.arma_check = arma;
 		this.posisao_check = -1;
