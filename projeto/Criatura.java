@@ -1,5 +1,7 @@
 package projeto;
 
+import java.util.Random;
+
 public abstract class Criatura {
 	private int vida_total; //Variavel responsavel por guardar a vida total da Criatura.
 	private int vida_atual; //Variavel responsavel por guardar a vida atual da Criatura.
@@ -96,6 +98,7 @@ public abstract class Criatura {
 	
 	public void reviver(int totalVertices) {
 		vida_atual = vida_total;
+		Random random=new Random();
 		int variação_posição = random.nextInt(totalVertices);
 		posição = variação_posição;
 	}

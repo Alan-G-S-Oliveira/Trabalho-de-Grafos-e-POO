@@ -9,7 +9,7 @@ public class Monstro extends Criatura {
 	
 	Monstro(){ //refazer
 		int mostro = random.nextInt(4);
-		switch (4) {
+		switch (mostro) {
 		case 0: {
 			this.nome = "Captain P.";
 			this.description = ("Um ornitorrinco comum, mascote de uma família peculiar, porém discreta, secretamente trabalha"
@@ -24,7 +24,7 @@ public class Monstro extends Criatura {
 			setArma(new Rapiera());
 			setStatus(null);
 		}
-		case 2:{
+		case 1:{
 			this.nome = "Ornitohulk";
 			this.description = ("Um ornitorrinco capturado pelo Dr. Bruce Banner para testar um composto que supostamente removeria seus poderes."
 					+ ". Infelizmente, o soro apenas reduziu significativamente os efeitos da radiação, deixando o ornitorrinco mais fraco, porém"
@@ -38,7 +38,7 @@ public class Monstro extends Criatura {
 			setArma(new Garra());
 			setStatus(null);
 		}
-		case 3:{
+		case 2:{
 			this.nome = "Ornitorrinco super saiyajin";
 			this.description = ("Um ornitorrinco extremamente incomum, criado em laboratório pelo Dr. Hedo, com o objetivo de desenvolver"
 					+"um super-herói, tão poderoso quanto um sayajin e com habilidades de fogo, simplesmente por achar isso legal. No"
@@ -53,7 +53,7 @@ public class Monstro extends Criatura {
 			setArma(new Ki());
 			setStatus(null);
 		}
-		case 4:{
+		case 3:{
 			this.nome = "Ornitorrinco otorrinolaringologista";
 			this.description = ("Já se perguntou por que os monstros se curam com o tempo? A culpa é deste ornitorrinco que veio para"
 					+ " esta ilha unicamente para ajudar os outros, independentemente da espécie. No entanto, infelizmente, quando você"
