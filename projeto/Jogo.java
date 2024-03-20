@@ -22,6 +22,36 @@ public class Jogo {
 
     }
 
+    public Grafo getIlha() {
+
+        return this.ilha;
+
+    }
+
+    public int getTempo() {
+
+        return this.tempo;
+
+    }
+
+    public int getResultado() {
+
+        return this.resultado;
+
+    }
+
+    public Jogador getJogador() {
+
+        return this.ilha.getJogador();
+
+    }
+
+    public ArrayList<Arma> getArmas(int no) {
+
+        return this.ilha.getNo(no).getArmas();
+
+    }
+
     //ACHO QUE TÁ DE BOA ESSE MÉTODO. QUALQUER COISA MUDO DEPOIS.
     public ArrayList<Integer> copy() {
 
@@ -57,34 +87,31 @@ public class Jogo {
     public void turno() {
         
         int v;
-        while(resultado == 0) {
 
-            if(ilha.getJogador().getTesouro() != 0) {
+        if(ilha.getJogador().getTesouro() != 0) {
 
-                v = pilha.getLast();
-                ilha.movimentoNormal(v, marca, pilha);
-                ilha.movimentarCriaturas(v);
+            v = pilha.getLast();
+            ilha.movimentoNormal(v, marca, pilha);
+            ilha.movimentarCriaturas(v);
 
-                if(ilha.getNo(v).isCheckPoint())
-                    pilhaCheckPoint = pilha;
+            if(ilha.getNo(v).isCheckPoint())
+                pilhaCheckPoint = pilha;
                 
-            } else {
+        } else {
 
-                v = pilha.removeLast();
-                ilha.movimentarCriaturas(v);
-
-            }
-
-            if(ilha.getNo(v).isCheckPoint()) {
-
-                ilha.getNo(v).updateCheckPoint(false);
-                ilha.getJogador().salvar_check();
-
-            }
-
-            this.tempo--;
+            v = pilha.removeLast();
+            ilha.movimentarCriaturas(v);
 
         }
+
+        if(ilha.getNo(v).isCheckPoint()) {
+
+            ilha.getNo(v).updateCheckPoint(false);
+            ilha.getJogador().salvar_check();
+
+        }
+
+        this.tempo--;
 
     }
 
@@ -96,9 +123,9 @@ public class Jogo {
         for(int i = 0; i < ilha.getTotalVertices(); i++) {
 
             aux = ilha.getNo(i).getCriaturas();
-            if(aux.size() > 1) {
+            if(naoBatalhou(aux) > 1) { 
 
-                removeMenores(aux);
+                removeMenores(aux);     //Remove as criaturas com menor vida que ainda não batalharam.
                 int[] batalha = buscaCriaturas(aux);
                 batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
 
@@ -108,17 +135,17 @@ public class Jogo {
 
     }
 
-    //POSSIVELMENTE VOU FAZER ALGUMAS ALTERAÇÕES 
+    //VOU DÁ UMA MUDADA NISSO.
     public void batalhar(Criatura mob1, Criatura mob2) {
 
         int x = mob1.getPosição();
+        boolean renasceu;
 
         for(int i = 0; i < 3; i++) {
 
             if(mob1 instanceof Jogador) {
 
-                //O comando de atacar ou fugir vai vir do usuário, logo
-                //tô em dúvida se getAtacar() vai tá em jogador, ou em uma classe do front.
+                //ACHO QUE USA UM MÉTODO STATIC DA CLASSE FACHADA PRA TER A INFORMAÇÃO SE O JOGADOR FUGIU O VAI LUTAR.
                 if(!mob1.getAtacar()) {
 
                     int v = pilha.getLast();
@@ -134,22 +161,30 @@ public class Jogo {
             if(mob2.getVida_atual() <= 0) {
 
                 //ACHO QUE TÁ FUNCIONANDO.
-                ilha.getNo(x).removeCriatura(mob2);
-                mob2.reviver(ilha.getTotalVertices());
-                ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
+                ilha.getNo(x).removeCriatura(mob2);     //Remove a criatura do vértice atual.
+                renasceu = mob2.reviver(ilha.getTotalVertices());  //Chama o método reviver.
+                ilha.getNo(mob2.getPosição()).addCriaturas(mob2);   //Coloca a criatura no novo vértice.
+
+                //VERIFICAR SE FUNCIONA.
+                if(mob2 instanceof Jogador)
+                    pilha = pilhaCheckPoint;
+
                 break;
 
             }
 
             if(mob2 instanceof Jogador) {
 
-                //O comando de atacar ou fugir vai vir do usuário, logo
-                //tô em dúvida se getAtacar() vai tá em jogador, ou em uma classe do front.
+                //ACHO QUE USA UM MÉTODO STATIC DA CLASSE FACHADA PRA TER A INFORMAÇÃO SE O JOGADOR FUGIU O VAI LUTAR.
                 if(!mob2.getAtacar()) {
 
                     int v = pilha.getLast();
                     fugir(mob2);
                     mob1.atacar(mob2);
+
+                    if(mob1 instanceof Jogador)
+                        pilha = pilhaCheckPoint;
+
                     break;
 
                 }
@@ -161,7 +196,7 @@ public class Jogo {
 
                 //ACHO QUE TÁ FUNCIONANDO.
                 ilha.getNo(x).removeCriatura(mob1);
-                mob1.reviver(ilha.getTotalVertices());
+                renasceu = mob1.reviver(ilha.getTotalVertices());
                 ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
                 break;
 
@@ -171,16 +206,23 @@ public class Jogo {
 
         }
 
+        resultado = verificaFim(renasceu);
         mob1.setBatalhou(true);
         mob2.setBatalhou(true);
 
     }
+    
+    public int verificaFim(boolean renasceu) {
 
-    //AINDA VOU FAZER.
-    //VAI TER 3 VALORES DE RETONO. -1 PARA DERROTA, 1 PARA VIÓRIA E 0 QUANDO O JOGO AINDA NÃO ACABOU.
-    public int verificaFim() {
+        if(tempo <= 0 || !renasceu)     //Vefifica se o jogador não pode mais renascer ou se o tempo acabou.
+            return -1;
 
-        return 98348;   //VALOR FODA-SE, SÓ PRA NÃO FICAR IMPLICANDO MAIS ERRO DO QUE JÁ TEM.
+        Jogador aux = ilha.getJogador();
+
+        if(aux.getPosição() == 0 && aux.getTesouro() != 0)  //Verifica se o jogador voultou com o tesouro para a praia.
+            return 1;
+
+        return 0;   //Segue o fluxo normal do jogo.
 
     }
  
@@ -199,11 +241,17 @@ public class Jogo {
     //Retorna a posição da criatura que ainda não batalhou com a menor vida na ArrayList.
     private int menor(ArrayList<Criatura> criaturas) {
 
-        int saida =  criaturas.get(0).getVida_atual();
+        int saida;
+        
+        if(criaturas.get(0) instanceof Monstro)
+            saida = criaturas.get(0).getVida_atual();
+        else
+            saida = criaturas.get(1).getVida_atual();
 
-        for(int i = 1; i < criaturas.size(); i++) {
+        for(int i = 0; i < criaturas.size(); i++) {
 
-            if(saida > criaturas.get(i).getVida_atual() && !criaturas.get(i).getBatalhou())
+            //Verifica o monstro com a vida menor que o atual e que ainda não batalhou. 
+            if(saida > criaturas.get(i).getVida_atual() && !criaturas.get(i).getBatalhou() && criaturas.get(i) instanceof Monstro)
                 saida = criaturas.get(i).getVida_atual();
 
         }

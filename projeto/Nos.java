@@ -111,7 +111,13 @@ public class Nos {
 
     public boolean removeCriatura(Criatura mob) {
 
-        return criaturas.remove(mob);
+        return this.criaturas.remove(mob);
+
+    }
+
+    public boolean removeArma(Arma arma) {
+
+        return  this.armas.remove(arma);
 
     }
 

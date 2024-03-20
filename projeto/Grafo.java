@@ -19,7 +19,6 @@ public class Grafo {
     public Grafo(String caminhoArquivo) throws FileNotFoundException {
 
         String[][] efeitos;
-        Monstro monstro;
         LerArquivo ler;
         Random num;
 
@@ -47,40 +46,8 @@ public class Grafo {
         for(int i = 0; i < totalVertices; i++)
             adjacencias[i] = ler.lerListaInteiro();
 
-        //Cria o vetor de nós, o inicializa com algumas criaturas e posiciona os tesouros.
-        nos = new Nos[totalVertices];
-        criaturas = new ArrayList<>();
-        jogador = new Jogador(100, 25, null, 0, null, null);
-        criaturas.add(jogador);
-
-        nos[0] = new Nos();
-        nos[0].addCriaturas(jogador);
-        for(int i = 1; i < totalVertices; i++) {
-
-            nos[i] = new Nos();
-            if(procuraVetor(checkpoints, i))
-                this.nos[i].updateCheckPoint(true);
-            if(procuraVetor(riquezas, i))
-                this.nos[i].setRiquesa(new Bau());
-
-            if(num.nextInt(10) < 3){
-
-                monstro = new Monstro();
-                monstro.setPosição(i);
-                nos[i].addCriaturas(monstro);
-                criaturas.add(monstro);
-                
-            }
-
-        }
-
-        //Em tese essa parte sorteia aonde o tesouro vai estar.
-        //Ele pode está na última posição ou em uma de suas adjacências.
-        int x = num.nextInt(adjacencias[totalVertices - 1].size() + 1);
-        if(x == adjacencias[totalVertices - 1].size())
-            nos[totalVertices - 1].setTesouro(true);
-        else
-            nos[adjacencias[totalVertices - 1].get(x)].setTesouro(true);
+        posicionaElementos(checkpoints, riquezas, num);
+        posicionaTesouro(num);
 
         //Percorre todos os efeitos lidos no arquivo e os coloca em suas respectivas posições.
         for(int i = 0; i < totalEfeitos; i++)
@@ -212,6 +179,49 @@ public class Grafo {
                 this.nos[i].setEfeito(new Queimado());
             default:
                 break;
+        }
+
+    }
+
+    //Em tese essa parte sorteia aonde o tesouro vai estar.
+    //Ele pode está na última posição ou em uma de suas adjacências.
+    private void posicionaTesouro(Random num) {
+
+        int x = num.nextInt(adjacencias[totalVertices - 1].size() + 1);
+        if(x == adjacencias[totalVertices - 1].size())
+            nos[totalVertices - 1].setTesouro(true);
+        else
+            nos[adjacencias[totalVertices - 1].get(x)].setTesouro(true);
+
+    }
+
+    //Função reponsável por criar o vetor de nos, e posicionar o jogador, os monstros e os checkpoints.
+    private void posicionaElementos(int[] checkpoints, int[] riquezas, Random num) {
+
+        nos = new Nos[totalVertices];
+        criaturas = new ArrayList<>();
+        jogador = new Jogador(100, 25, null, 0, null, null);
+        criaturas.add(jogador);
+
+        nos[0] = new Nos();
+        nos[0].addCriaturas(jogador);
+        for(int i = 1; i < totalVertices; i++) {
+
+            nos[i] = new Nos();
+            if(procuraVetor(checkpoints, i))
+                this.nos[i].updateCheckPoint(true);
+            if(procuraVetor(riquezas, i))
+                this.nos[i].setRiquesa(new Bau());
+
+            if(num.nextInt(10) < 3){
+
+                Monstro monstro = new Monstro();
+                monstro.setPosição(i);
+                nos[i].addCriaturas(monstro);
+                criaturas.add(monstro);
+                
+            }
+
         }
 
     }

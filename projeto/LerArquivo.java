@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//PRECISO REMOVER ALGUMAS GAMBIARRAS.
 public class LerArquivo {
 
     private Scanner ler;
@@ -70,14 +71,8 @@ public class LerArquivo {
                 aux += linha.charAt(i);
             else {
 
-                try {
-
-                    leitura.add(Integer.parseInt(aux));
-                    aux = "";
-
-                } catch(NumberFormatException exc) {
-                    
-                }
+                leitura.add(Integer.parseInt(aux));
+                aux = "";
 
             }
 
@@ -101,15 +96,9 @@ public class LerArquivo {
                 aux += linha.charAt(i);
             else {
 
-                try {
-
-                    leitura[cont] = Integer.parseInt(aux);
-                    aux = "";
-                    cont++;
-
-                } catch(NumberFormatException exc) {
-                    
-                }
+                leitura[cont] = Integer.parseInt(aux);
+                aux = "";
+                cont++;
 
             }
 
