@@ -142,9 +142,9 @@ public class Grafo {
         posicaoAtual = mob.getPosição();        //Pega sua posição atual.
         nos[posicaoAtual].removeCriatura(mob);  //Remove a criatura do seu nó atual.
 
-        //TENHO QUE FALAR COM PEDRO SOBRE ISSO.
+        //ARRUMA TUA PARTE PEDRO.
         if(mob instanceof Monstro)
-            novaPosicao = ((Monstro) (mob)).movimentar();   //Movimenta caso for monstro.  
+            novaPosicao = ((Monstro) (mob)).movimentar(this.adjacencias[mob.getPosição()]);   //Movimenta caso for monstro.  
         else
             novaPosicao = mob.movimentar(v);    //Movimenta caso for o jogador.
 

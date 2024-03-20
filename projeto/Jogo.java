@@ -143,6 +143,8 @@ public class Jogo {
 
         for(int i = 0; i < 3; i++) {
 
+            //MODIFICAR PRA VERIFICAR SE O JOGADOR TÁ BATALHANDO ANTES DA RODADA.
+
             if(mob1 instanceof Jogador) {
 
                 //ACHO QUE USA UM MÉTODO STATIC DA CLASSE FACHADA PRA TER A INFORMAÇÃO SE O JOGADOR FUGIU O VAI LUTAR.
@@ -162,7 +164,7 @@ public class Jogo {
 
                 //ACHO QUE TÁ FUNCIONANDO.
                 ilha.getNo(x).removeCriatura(mob2);     //Remove a criatura do vértice atual.
-                renasceu = mob2.reviver(ilha.getTotalVertices());  //Chama o método reviver.
+                renasceu = mob2.reviver(ilha.getTotalVertices());  //PROBLEMA DE PEDRO ISSO AQUI.
                 ilha.getNo(mob2.getPosição()).addCriaturas(mob2);   //Coloca a criatura no novo vértice.
 
                 //VERIFICAR SE FUNCIONA.
@@ -196,7 +198,7 @@ public class Jogo {
 
                 //ACHO QUE TÁ FUNCIONANDO.
                 ilha.getNo(x).removeCriatura(mob1);
-                renasceu = mob1.reviver(ilha.getTotalVertices());
+                renasceu = mob1.reviver(ilha.getTotalVertices());   ///PROBLEMA DE PEDRO ISSO AQUI.
                 ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
                 break;
 
