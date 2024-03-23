@@ -86,12 +86,9 @@ public class Monstro extends Criatura {
 		this.nome = nome;
 	}
 	
-	//ARRUMA ESSA PORRA PEDRO, ISSO NÃO FAZ SENTIDO.
-	public void movimentar() { //Movimentação do monstro.
-		ArrayList<Integer> adijacencias = new ArrayList<>();
+	public void movimentar(ArrayList<Integer> adijacencias) { //Movimentação do monstro.
 		int ficar = random.nextInt(10); //Gera a chance de um decimo do monstro ficar parado.
 		if(ficar>0) { //Se ele se mover ele pegar uma posição aleatoria do array list adijasentes para o mostro se movimentar.
-			adijacencias = getAdjacencias(getPosição());
 			int tamanho = adijacencias.size();
 			ficar = random.nextInt(tamanho);
 			setPosição(adijacencias.get(ficar));

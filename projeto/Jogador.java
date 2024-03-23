@@ -47,7 +47,7 @@ public class Jogador extends Criatura {
 		status_check=this.getStatus().copy();
 	}
 	
-	public boolean renacer() { //Função responsavel por reviver o jogador.
+	public boolean reviver() { //Função responsavel por reviver o jogador.
 		if(this.posisao_check>=0) {
 			setPosição(posisao_check);
 			setArma(arma_check);
