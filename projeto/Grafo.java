@@ -115,7 +115,7 @@ public class Grafo {
             pilha.add(u);
 
         } else
-            pilha.removeLast();
+            pilha.remove(pilha.size()-1);
 
     }
 

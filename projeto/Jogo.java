@@ -90,7 +90,7 @@ public class Jogo {
 
         if(ilha.getJogador().getTesouro() != 0) {
 
-            v = pilha.getLast();
+            v = pilha.remove(pilha.size()-1);
             ilha.movimentoNormal(v, marca, pilha);
             ilha.movimentarCriaturas(v);
 
@@ -99,7 +99,7 @@ public class Jogo {
                 
         } else {
 
-            v = pilha.removeLast();
+            v = pilha.remove(pilha.size()-1);
             ilha.movimentarCriaturas(v);
 
         }
@@ -139,7 +139,7 @@ public class Jogo {
     public void batalhar(Criatura mob1, Criatura mob2) {
 
         int x = mob1.getPosição();
-        boolean renasceu;
+        boolean renasceu=false;
 
         for(int i = 0; i < 3; i++) {
 
@@ -148,9 +148,9 @@ public class Jogo {
             if(mob1 instanceof Jogador) {
 
                 //ACHO QUE USA UM MÉTODO STATIC DA CLASSE FACHADA PRA TER A INFORMAÇÃO SE O JOGADOR FUGIU O VAI LUTAR.
-                if(!mob1.getAtacar()) {
+                if(!mob1.getBatalhou()) {
 
-                    int v = pilha.getLast();
+                    int v = pilha.remove(pilha.size()-1);
                     fugir(mob1);
                     mob2.atacar(mob1);
                     break;
@@ -162,9 +162,10 @@ public class Jogo {
             mob1.atacar(mob2);
             if(mob2.getVida_atual() <= 0) {
 
-                //ACHO QUE TÁ FUNCIONANDO.
-                ilha.getNo(x).removeCriatura(mob2);     //Remove a criatura do vértice atual.
-                renasceu = mob2.reviver(ilha.getTotalVertices());  //PROBLEMA DE PEDRO ISSO AQUI.
+                //agora sim ta fundand0
+                ilha.getNo(x).removeCriatura(mob2);     //Remove a criatura do vértice atual. 
+                mob2.reviver(ilha.getTotalVertices());  //PROBLEMA da tua cabecinha
+                renasceu =true;
                 ilha.getNo(mob2.getPosição()).addCriaturas(mob2);   //Coloca a criatura no novo vértice.
 
                 //VERIFICAR SE FUNCIONA.
@@ -178,9 +179,9 @@ public class Jogo {
             if(mob2 instanceof Jogador) {
 
                 //ACHO QUE USA UM MÉTODO STATIC DA CLASSE FACHADA PRA TER A INFORMAÇÃO SE O JOGADOR FUGIU O VAI LUTAR.
-                if(!mob2.getAtacar()) {
+                if(!mob2.getBatalhou()) {
 
-                    int v = pilha.getLast();
+                    int v = pilha.remove(pilha.size()-1);
                     fugir(mob2);
                     mob1.atacar(mob2);
 
@@ -196,9 +197,10 @@ public class Jogo {
             mob2.atacar(mob2);
             if(mob1.getVida_atual() <= 0) {
 
-                //ACHO QUE TÁ FUNCIONANDO.
+                //agora sim ta funfanfo
                 ilha.getNo(x).removeCriatura(mob1);
-                renasceu = mob1.reviver(ilha.getTotalVertices());   ///PROBLEMA DE PEDRO ISSO AQUI.
+                mob1.reviver(ilha.getTotalVertices());
+                renasceu = true;   ///PROBLEMA da tua cabeça isso aqui
                 ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
                 break;
 
@@ -269,7 +271,7 @@ public class Jogo {
 
         if(mob instanceof Jogador) {
 
-            v = pilha.getLast();    //v recebe a próxima posição para se mover. 
+            v = pilha.remove(pilha.size()-1);    //v recebe a próxima posição para se mover. 
             ilha.movimentoNormal(v, marca, pilha);
 
         }

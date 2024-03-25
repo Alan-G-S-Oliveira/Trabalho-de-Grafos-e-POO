@@ -14,17 +14,17 @@ public abstract class Efeito_de_terreno {
 		this.nome = nome;
 	}
 	
-	public String getcomment() {
+	public String getComment() {
 		return this.comment;
 	}
-	public void setcomment(String comment) {
+	public void setComment(String comment) {
 		this.comment = comment;
 	}
 	
-	public int getdano() {
+	public int getDano() {
 		return this.dano;
 	}
-	public void setdano(int dano) {
+	public void setDano(int dano) {
 		this.dano = dano;
 	}
 }
