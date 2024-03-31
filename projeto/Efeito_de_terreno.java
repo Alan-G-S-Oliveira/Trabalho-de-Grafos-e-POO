@@ -27,4 +27,6 @@ public abstract class Efeito_de_terreno {
 	public void setDano(int dano) {
 		this.dano = dano;
 	}
+
+	public abstract void aplicarEfeito(Criatura p);
 }

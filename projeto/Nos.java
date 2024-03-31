@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Nos {
 
     private ArrayList<Criatura> criaturas;
-    private Efeito efeito;
+    private Efeito_de_terreno efeito;
     private Riqueza riqueza;
     private ArrayList<Arma> armas;
 
@@ -13,7 +13,7 @@ public class Nos {
     private boolean checkpoint;
 
     //Construtor da classe
-    public Nos(Efeito efeito, Riqueza riqueza, boolean tesouro) {
+    public Nos(Efeito_de_terreno efeito, Riqueza riqueza, boolean tesouro) {
 
         this.efeito = efeito;
         this.tesouro = tesouro;
@@ -36,7 +36,7 @@ public class Nos {
     }
     
     //Conjunto de gets
-    public Efeito getEfeito() {
+    public Efeito_de_terreno getEfeito() {
 
         return this.efeito;
 
@@ -73,7 +73,7 @@ public class Nos {
     }
 
     //Conjunto de sets
-    public void setEfeito(Efeito efeito) {
+    public void setEfeito(Efeito_de_terreno efeito) {
 
         this.efeito = efeito;
 
@@ -118,6 +118,18 @@ public class Nos {
     public boolean removeArma(Arma arma) {
 
         return  this.armas.remove(arma);
+
+    }
+
+    //PRECISA DE ALTERAÇÕES.
+    public void aplicarEfeito() {
+
+        if(efeito != null) {
+
+            for(int i = 0; i < criaturas.size(); i++) 
+                efeito.aplicarEfeito(criaturas.get(i));
+
+        }
 
     }
 

@@ -92,15 +92,17 @@ public abstract class Criatura {
 		}
 	}
 	
-	public void movimentar(int nova_posisao) { //Função para movimentar uma criatura mais comumente usado na classe Jogador.
+	public int movimentar(int nova_posisao) { //Função para movimentar uma criatura mais comumente usado na classe Jogador.
 		posição = nova_posisao;
+		return this.getPosição();
 	}
 	
-	public void reviver(int totalVertices) {
+	public boolean reviver(int totalVertices) {
 		vida_atual = vida_total;
 		Random random=new Random();
 		int variação_posição = random.nextInt(totalVertices);
 		posição = variação_posição;
+		return true;
 	}
 
 }

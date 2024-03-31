@@ -8,6 +8,6 @@ public class Armadilha_de_dardos extends Efeito_de_terreno implements Efeito{
 	}
 	public void aplicarEfeito(Criatura p){
 		p.receberDano(getDano());
-		p.setStatus(new Envenenado());;
+		p.setStatus(new Envenenado());
 	}
 }

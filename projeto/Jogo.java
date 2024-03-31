@@ -136,6 +136,8 @@ public class Jogo {
     }
 
     //VOU DÁ UMA MUDADA NISSO.
+
+    /* 
     public void batalhar(Criatura mob1, Criatura mob2) {
 
         int x = mob1.getPosição();
@@ -211,6 +213,82 @@ public class Jogo {
         }
 
         resultado = verificaFim(renasceu);
+        mob1.setBatalhou(true);
+        mob2.setBatalhou(true);
+
+    }
+    */
+
+    //TESTANDO SE ISSO FAZ SENTIDO. É PRECISO VER COMO VAI SER A INTERAÇÃO COM A TELA.
+    //SE FOR UMA BATALHA ENTRE DOIS MONSTROS, CHAMA O DE BAIXO E FODA-SE O RESTO.
+    //SE O JOGADOR TÁ NO MEIO CHAMA ESSE PRIMEIRO. MAS PRA ISSO É PRECISO TER A INFORMAÇÃO 
+    //SE O JOGADOR FUGIU OU NÃO NO COMEÇO DE CADA TURNO, ESSA INFORMAÇÃO VEM DA TELA.
+    //ALÉM DE QUE CASO ELE MORRA TEMOS QUE VERIFICAR SE FOI POSSÍVEL REVIVER.
+    //PROVAVELMETE EM PREPARAR BATALHA VOU VERIFICAR QUAIS DAS DUAS EU CHAMO E PENSAR EM ALGUM
+    //JEITO DE COLOCAR A COMUNICAÇÃO COM A TELA NESSA PARTE. 
+    public boolean batalhar(Criatura mob1, Criatura mob2) {
+
+        int x = mob1.getPosição();
+        boolean reviveu;
+
+        mob1.atacar(mob2);
+
+        if(mob2.getVida_atual() <= 0) {
+
+            ilha.getNo(x).removeCriatura(mob2);
+
+            if(mob2 instanceof Jogador)
+                reviveu = ((Jogador) mob2).reviver();
+            else
+                reviveu =  mob2.reviver(ilha.getTotalVertices());
+
+            ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
+            return reviveu;
+        }
+
+        mob2.atacar(mob1);
+
+        if(mob1.getVida_atual() <= 0) {
+
+            ilha.getNo(x).removeCriatura(mob1);
+
+            if(mob1 instanceof Jogador)
+                reviveu = ((Jogador) mob1).reviver();
+            else
+                reviveu =  mob1.reviver(ilha.getTotalVertices());
+
+            ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
+            return reviveu;
+        }
+
+        return true;
+
+    }
+
+    public void batalhar(Monstro mob1, Monstro mob2) {
+
+        for(int i = 0; i < 3; i++) {
+
+            mob1.atacar(mob2);
+
+            if(mob2.getVida_atual() <= 0) {
+
+                mob2.reviver(ilha.getTotalVertices());
+                break;
+
+            }
+
+            mob2.atacar(mob1);
+
+            if(mob1.getVida_atual() <= 0) {
+
+                mob1.reviver(ilha.getTotalVertices());
+                break;
+
+            }
+
+        }
+
         mob1.setBatalhou(true);
         mob2.setBatalhou(true);
 
