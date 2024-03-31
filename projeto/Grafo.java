@@ -172,11 +172,15 @@ public class Grafo {
         int i = Integer.parseInt(efeito[1]);
 
         switch (efeito[0]) {
-            case "Envenenado":
-                this.nos[i].setEfeito(new Envenenado());
+            case "pedra":
+                this.nos[i].setEfeito(new Apedrejamento());
                 break;
-            case "Queimado":
-                this.nos[i].setEfeito(new Queimado());
+            case "dardos":
+                this.nos[i].setEfeito(new Armadilha_de_dardos());
+                break;
+            case "lagartas":
+                this.nos[i].setEfeito(new Lagartas_de_fogo());
+                break;
             default:
                 break;
         }
