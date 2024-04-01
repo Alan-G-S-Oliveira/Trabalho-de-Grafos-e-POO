@@ -116,7 +116,7 @@ public class Jogo {
     }
 
     //Prepara as criaturas que vão batalhar e faz a batalha.
-    public void prepararBatalha() {
+    public void prepararBatalha(boolean fuga) {
 
         ArrayList<Criatura> aux;
 
@@ -127,7 +127,11 @@ public class Jogo {
 
                 removeMenores(aux);     //Remove as criaturas com menor vida que ainda não batalharam.
                 int[] batalha = buscaCriaturas(aux);
-                batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
+
+                if((!(aux.get(batalha[0]) instanceof Jogador) && !(aux.get(batalha[1]) instanceof Jogador)) && !fuga)
+                    batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
+                else
+                    fugir(getJogador());
 
             }
 
@@ -231,40 +235,59 @@ public class Jogo {
         int x = mob1.getPosição();
         boolean reviveu;
 
-        mob1.atacar(mob2);
+        for(int i = 0; i < 3; i++) {
+            mob1.atacar(mob2);
 
-        if(mob2.getVida_atual() <= 0) {
+            if(mob2.getVida_atual() <= 0) {
 
-            ilha.getNo(x).removeCriatura(mob2);
+                ilha.getNo(x).removeCriatura(mob2);
 
-            if(mob2 instanceof Jogador)
-                reviveu = ((Jogador) mob2).reviver();
-            else
-                reviveu =  mob2.reviver(ilha.getTotalVertices());
+                if(mob2 instanceof Jogador) {
 
-            ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
-            return reviveu;
-        }
+                    reviveu = ((Jogador) mob2).reviver();
+                    if(reviveu) {
 
-        mob2.atacar(mob1);
+                        pilha = pilhaCheckPoint;
+                        pilhaCheckPoint = null;
 
-        if(mob1.getVida_atual() <= 0) {
+                    }
 
-            ilha.getNo(x).removeCriatura(mob1);
+                } else
+                    reviveu =  mob2.reviver(ilha.getTotalVertices());
 
-            if(mob1 instanceof Jogador)
-                reviveu = ((Jogador) mob1).reviver();
-            else
-                reviveu =  mob1.reviver(ilha.getTotalVertices());
+                ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
+                return reviveu;
+            }
 
-            ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
-            return reviveu;
+            mob2.atacar(mob1);
+
+            if(mob1.getVida_atual() <= 0) {
+
+                ilha.getNo(x).removeCriatura(mob1);
+
+                if(mob1 instanceof Jogador) {
+
+                    reviveu = ((Jogador) mob1).reviver();
+                    if(reviveu){
+
+                        pilha = pilhaCheckPoint;
+                        pilhaCheckPoint = null;
+
+                    }
+
+                } else
+                    reviveu =  mob1.reviver(ilha.getTotalVertices());
+
+                ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
+                return reviveu;
+            }
         }
 
         return true;
 
     }
 
+    /* 
     public void batalhar(Monstro mob1, Monstro mob2) {
 
         for(int i = 0; i < 3; i++) {
@@ -305,6 +328,32 @@ public class Jogo {
             return 1;
 
         return 0;   //Segue o fluxo normal do jogo.
+
+    } */
+
+    public boolean aplicarEfetitos() {
+
+        for(int i = 0; i < ilha.getCriaturas().size(); i++) {
+
+            Criatura aux1 = ilha.getCriaturas().get(i);
+            if(!(ilha.getCriaturas().get(i) instanceof Jogador)) {
+
+                Efeito_de_terreno aux2 = ilha.getNo(aux1.getPosição()).getEfeito();
+                if(aux2 != null)
+                    aux2.aplicarEfeito(aux1);
+
+            }
+
+        }
+
+        if(ilha.getNo(ilha.getJogador().getPosição()).getEfeito() != null) {
+
+            ilha.getNo(ilha.getJogador().getPosição()).getEfeito().aplicarEfeito(ilha.getJogador());
+            return true;          
+
+        }
+        
+        return false;
 
     }
  

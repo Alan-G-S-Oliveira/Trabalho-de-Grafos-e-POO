@@ -121,16 +121,4 @@ public class Nos {
 
     }
 
-    //PRECISA DE ALTERAÇÕES.
-    public void aplicarEfeito() {
-
-        if(efeito != null) {
-
-            for(int i = 0; i < criaturas.size(); i++) 
-                efeito.aplicarEfeito(criaturas.get(i));
-
-        }
-
-    }
-
 }
