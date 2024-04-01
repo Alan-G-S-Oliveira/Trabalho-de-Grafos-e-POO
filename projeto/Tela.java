@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class Tela extends JFrame implements KeyListener {
 	int x_size=1600,y_size=800;
@@ -11,22 +12,23 @@ public class Tela extends JFrame implements KeyListener {
 	int atual_monstro=0;
 	int espaco=300;
 	private Jogo jogo;
-	private boolean monstro=true;
-    private Image sprite;
+	private boolean monstro=false;
+    private boolean emBatalha=false;
+    private boolean catando=false;
     private Image map;
-    String texto="dkjvgç sdohjgdfgsfdd ddddddddddddddd ddddddddd dddddddd ddddddddd ddddd dddddd ddddddddd dddddddddd ddl~gk";
+    ArrayList<Arma> chao[];
+    int quantidade_chao;
+    String texto="Você chegou em uma nova e inexplorada ilha, onde lhe é prometido inestimaveis tesouro. Pressione a tecla espaço para andar entre os pontos da ilha.";
     Image[] monstros = new Image[4];
-    
-    
+
     public Tela() throws FileNotFoundException {
         setTitle("Meu Jogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(x_size,y_size);
         setLocationRelativeTo(null);
         this.jogo=new Jogo("\\Dados.csv");
-        ImageIcon icon = new ImageIcon("C:\\Users\\doppa\\OneDrive\\Área de Trabalho\\Nova pasta\\img\\nave_azul.png");
-        sprite = icon.getImage();
-        icon = new ImageIcon("C:\\Users\\doppa\\OneDrive\\Área de Trabalho\\map.jpg");
+        this.jogo.inicial();
+        ImageIcon icon = new ImageIcon("C:\\Users\\doppa\\OneDrive\\Área de Trabalho\\map.jpg");
         map=icon.getImage();
         y_size=icon.getIconHeight()+borda+topo_borda;
         x_size=icon.getIconWidth()+2*borda+espaco;
@@ -37,7 +39,6 @@ public class Tela extends JFrame implements KeyListener {
         }
         
  
-        monstros[0] = sprite;
         this.setVisible(true);
         this.repaint();
     }
@@ -46,7 +47,6 @@ public class Tela extends JFrame implements KeyListener {
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(map,borda,topo_borda,this);
-        g.drawImage(sprite, 550, 350, this);
         if(monstro) {
         	g.drawImage(monstros[atual_monstro], borda + map.getWidth(this), topo_borda, this);
         }
@@ -73,16 +73,38 @@ public class Tela extends JFrame implements KeyListener {
         // Este método é chamado quando uma tecla é digitada (pressionada e solta)
     	char tecla=e.getKeyChar();
     	switch (tecla) {
-    		case 'a':
-    		case 'A':
-        	 
+            case ' ':
+                if(catando){
+                    break;
+                }
+                if(emBatalha)
+                    break;
+                if(monstro){
+                    break;
+                }else{
+                    jogo.turno();
+                    break;
+                }
+    		case 'f':
+    		case 'F':
+                //VAI PRO PAU
     			break;
+            case 'l':
+            case 'L':
+                //ACORVADA
+                break;
     		default:
              //nada
      }
     	
     	
-    	
+    	this.atual_monstro=jogo.getCriatura();
+        if (atual_monstro==-1) {
+            monstro=false;
+        }else{
+            monstro=true;
+            texto=texto+"Pressione L para lutar ou F para fugir.";
+        }
     	this.repaint();
     }
     

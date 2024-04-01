@@ -52,6 +52,23 @@ public class Jogo {
 
     }
 
+    public int getCriatura() {
+
+        Criatura b=ilha.getNo(ilha.getJogador().getPosição()).getCriaturas().get(0); //Depois eu olho
+        if(b instanceof Jogador)
+            return -1;
+        Monstro a= (Monstro)b;
+        if (a.getNome()=="Captain P.")
+            return 0;
+        if (a.getNome()=="Captain P.")
+            return 1;
+        if (a.getNome()=="Captain P.")
+            return 2;
+        if (a.getNome()=="Captain P.")
+            return 3;
+        return -1;
+    }
+
     //ACHO QUE TÁ DE BOA ESSE MÉTODO. QUALQUER COISA MUDO DEPOIS.
     public ArrayList<Integer> copy() {
 
