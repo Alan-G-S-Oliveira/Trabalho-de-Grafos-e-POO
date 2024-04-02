@@ -29,7 +29,8 @@ public class Tela extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(x_size,y_size);
         setLocationRelativeTo(null);
-        this.jogo=new Jogo("\\Dados.csv");
+        String caminho = this.getClass().getResource("../../../../").getPath();
+        this.jogo=new Jogo(caminho+"Dados.csv");
         this.jogo.inicial();
         ImageIcon icon = new ImageIcon("\\imagens\\ilha.jpg");
         map=icon.getImage();
@@ -147,9 +148,6 @@ public class Tela extends JFrame implements KeyListener {
     	this.repaint();
     }
     
-    public void jogar() {
-    	  	
-    }
 
 	@Override
 	public void keyPressed(KeyEvent e) {
