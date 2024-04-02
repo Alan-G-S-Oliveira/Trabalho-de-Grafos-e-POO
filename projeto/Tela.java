@@ -98,10 +98,12 @@ public class Tela extends JFrame implements KeyListener {
             case 'c':
             case 'C':
             	catando=true;
+            	break;
             case 's':
             case 'S':
             	if(catando) 
             		catando=false;
+            	break;
             case '1':
             case '2':
             case '3':
