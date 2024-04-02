@@ -96,12 +96,12 @@ public class Grafo {
 	}
 
     //Calcula o próximo vértice para o jogador ir usando busca em profundidade.
-    public void movimentoNormal(int v, String[] marca, ArrayList<Integer> pilha) {
+    public void movimentoNormal(int v, int[] marca, ArrayList<Integer> pilha) {
 
         int i;
         for(i = 0; i < adjacencias[v].size(); i++) {
 
-            if(marca[i].equals("branco"))
+            if(marca[adjacencias[v].get(i)] == 0)
                 break;
 
         }
@@ -109,7 +109,7 @@ public class Grafo {
         if(i != adjacencias[v].size()) {
 
             int u = adjacencias[v].get(i);
-            marca[u] = "cinza";
+            marca[u] = 1;
             pilha.add(u);
 
         } else

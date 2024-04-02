@@ -10,7 +10,7 @@ public class Jogo {
     private int tempo;
     private int resultado;
 
-    private String[] marca;
+    private int[] marca;
     private ArrayList<Integer> pilhaCheckPoint;
     private ArrayList<Integer> pilha;
 
@@ -84,18 +84,20 @@ public class Jogo {
     //Escolhe de forma aleatória a primeira posição para qual o jogador vai se mover a partir da praia.
     public void inicial() {
 
-        marca = new String[ilha.getTotalVertices()];
+        marca = new int[ilha.getTotalVertices()];
         pilhaCheckPoint =  new ArrayList<>();
         pilha = new ArrayList<>();
 
         Random num = new Random();       
 
         for(int i = 0; i < marca.length; i++)
-            marca[i] = "branco";
+            marca[i] = 0;
         
         int v = num.nextInt(ilha.getAdjacencias(0).size());
 
         pilha.add(0);
+        marca[0] = 1;
+        marca[ilha.getAdjacencias(0).get(v)] = 1;
         pilha.add(ilha.getAdjacencias(0).get(v));
         
     }
@@ -105,9 +107,15 @@ public class Jogo {
         
         int v;
 
-        if(ilha.getJogador().getTesouro() != 0) {
+        System.out.println(ilha.getJogador().getTesouro() == 0);
+        System.out.println(pilha);
+        for(int i: marca)
+            System.out.print(i + " ");
+        System.out.println();
 
-            v = pilha.remove(pilha.size()-1);
+        if(ilha.getJogador().getTesouro() == 0) {
+
+            v = pilha.get(pilha.size()-1);
             ilha.movimentoNormal(v, marca, pilha);
             ilha.movimentarCriaturas(v);
 
@@ -127,6 +135,9 @@ public class Jogo {
             ilha.getJogador().salvar_check();
 
         }
+
+        if(ilha.getNo(ilha.getJogador().getPosição()).isTesouro())
+            ilha.getJogador().setTesouro(ilha.getJogador().getVida_atual());
 
         this.tempo--;
 

@@ -23,6 +23,7 @@ public class Monstro extends Criatura {
 			setForça(10+variação_força);
 			setArma(new Rapiera());
 			setStatus(null);
+			break;
 		}
 		case 1:{
 			this.nome = "Ornitohulk";
@@ -37,6 +38,7 @@ public class Monstro extends Criatura {
 			setForça(20+variação_força);
 			setArma(new Garra());
 			setStatus(null);
+			break;
 		}
 		case 2:{
 			this.nome = "Ornitorrinco super saiyajin";
@@ -52,6 +54,7 @@ public class Monstro extends Criatura {
 			setForça(12+variação_força);
 			setArma(new Ki());
 			setStatus(null);
+			break;
 		}
 		case 3:{
 			this.nome = "Ornitorrinco otorrinolaringologista";
@@ -66,6 +69,7 @@ public class Monstro extends Criatura {
 			setForça(8+variação_força);
 			setArma(new Maleta());
 			setStatus(null);
+			break;
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + 4);

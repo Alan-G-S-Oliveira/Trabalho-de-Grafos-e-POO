@@ -29,18 +29,19 @@ public class Tela extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(x_size,y_size);
         setLocationRelativeTo(null);
-        this.jogo=new Jogo("\\Dados.csv");
+        this.jogo=new Jogo("\\Users\\alang\\OneDrive\\Área de Trabalho\\Programação\\Trabalho-de-Grafos-e-POO\\projeto\\Dados.csv");
         this.jogo.inicial();
-        ImageIcon icon = new ImageIcon("\\imagens\\ilha.jpg");
+        ImageIcon icon = new ImageIcon("\\Users\\alang\\OneDrive\\Área de Trabalho\\Programação\\Trabalho-de-Grafos-e-POO\\imagens\\ilha.jpg");
         map=icon.getImage();
         y_size=icon.getIconHeight()+borda+topo_borda;
         x_size=icon.getIconWidth()+2*borda+espaco;
         setSize(x_size, y_size);
         for(int i=0;i<4;i++) {
-        	icon=new ImageIcon("\\imagens\\monstro"+i+".jpg");
+        	icon=new ImageIcon("\\Users\\alang\\OneDrive\\Área de Trabalho\\Programação\\Trabalho-de-Grafos-e-POO\\imagens\\monstro"+i+".jpg");
         	monstros[i]=icon.getImage();
         }
         
+        this.addKeyListener(this);
  
         this.setVisible(true);
         this.repaint();
@@ -56,7 +57,9 @@ public class Tela extends JFrame implements KeyListener {
         String[] words = texto.split(" ");
         String currentLine = "";
         int x = borda + map.getWidth(this);
-        int y = topo_borda + monstros[atual_monstro].getHeight(this) + 20;
+        int y = 300;
+        if(monstro)
+            y = topo_borda + monstros[atual_monstro].getHeight(this) + 20;
         int maxWidth = getWidth() - x - borda;
         for (String word : words) {
             if (g.getFontMetrics().stringWidth(currentLine + " " + word) < maxWidth) {
@@ -163,12 +166,20 @@ public class Tela extends JFrame implements KeyListener {
 		
 	}
 
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            try {
             Tela jogo = new Tela();
             jogo.setVisible(true);
             jogo.repaint(); // Certifique-se de que a tela seja atualizada
+            } catch (Exception exc) {
+
+                System.out.println(exc);
+                exc.printStackTrace();
+
+            }
+
         });
-    }*/
+    }
 }
 

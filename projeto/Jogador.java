@@ -41,10 +41,13 @@ public class Jogador extends Criatura {
 	
 	public void salvar_check() { //salva o estado do jogador ao passar pelo checkpoint.
 		posisao_check = getPosição();
-		arma_check = this.getArma().copy();
+		if(this.getArma() != null)
+			arma_check = this.getArma().copy();
 		vida_atual_check = getVida_atual();
-		colar_check = this.getColar().copy();
-		status_check=this.getStatus().copy();
+		if(this.getColar() != null)
+			colar_check = this.getColar().copy();
+		if(this.getStatus() != null)
+			 status_check=this.getStatus().copy();
 	}
 	
 	public boolean reviver() { //Função responsavel por reviver o jogador.
