@@ -18,9 +18,8 @@ public class Tela extends JFrame implements KeyListener {
 	private Jogo jogo;
 	private boolean monstro=false;
     private boolean catando=false;
+    private int resultado=0;
     private Image map;
-    ArrayList<Arma> chao[];
-    int quantidade_chao;
     String texto="Você chegou em uma nova e inexplorada ilha, onde lhe é prometido inestimaveis tesouro. Pressione a tecla espaço para andar entre os pontos da ilha.";
     Image[] monstros = new Image[4];
 
@@ -147,6 +146,12 @@ public class Tela extends JFrame implements KeyListener {
         }
         if(jogo.getArmas().size()>0 && !catando && !monstro)
         	texto=texto+"Pressione C para ver os itens no chão";
+        resultado=jogo.getResultado();
+        if(resultado==-1) {
+        	texto="Você perdeu!!!";
+        }else if(resultado==1){
+        	texto="Você ganhou!!!";
+        }
     	this.repaint();
     }
     
