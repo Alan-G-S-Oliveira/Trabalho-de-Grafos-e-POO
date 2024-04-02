@@ -46,8 +46,8 @@ public class Jogo {
 
     }
 
-    public ArrayList<Arma> getArmas(int no) {
-
+    public ArrayList<Arma> getArmas() {
+    	int no=ilha.getJogador().getPosição();
         return this.ilha.getNo(no).getArmas();
 
     }
