@@ -147,9 +147,6 @@ public class Jogo {
             v = pilha.get(pilha.size()-1);
             ilha.movimentoNormal(v, marca, pilha);
             ilha.movimentarCriaturas(v);
-
-            if(ilha.getNo(v).isCheckPoint())
-                pilhaCheckPoint = pilha;
                 
         } else {
 
@@ -162,6 +159,7 @@ public class Jogo {
 
             ilha.getNo(v).updateCheckPoint(false);
             ilha.getJogador().salvar_check();
+            pilhaCheckPoint = copy();
 
         }
 
