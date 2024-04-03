@@ -9,6 +9,7 @@ public class Jogo {
     private Grafo ilha;
     private int tempo;
     private int resultado;
+    private boolean reviveu;
 
     private int[] marca;
     private ArrayList<Integer> pilhaCheckPoint;
@@ -54,17 +55,28 @@ public class Jogo {
 
     public int getCriatura() {
 
-        Criatura b=ilha.getNo(ilha.getJogador().getPosição()).getCriaturas().get(0); //Depois eu olho
-        if(b instanceof Jogador)
+        Criatura b = null;
+        ArrayList<Criatura> aux = ilha.getNo(ilha.getJogador().getPosição()).getCriaturas();
+
+        for(int i = 0; i < aux.size(); i++) {
+
+            if(aux.get(i) instanceof Monstro && !aux.get(i).getBatalhou()){
+                b = aux.get(i);
+                break;
+            }
+
+        }
+
+        if(b == null)
             return -1;
         Monstro a= (Monstro)b;
         if (a.getNome()=="Captain P.")
             return 0;
-        if (a.getNome()=="Captain P.")
+        if (a.getNome()=="Ornitohulk")
             return 1;
-        if (a.getNome()=="Captain P.")
+        if (a.getNome()=="Ornitorrinco super saiyajin")
             return 2;
-        if (a.getNome()=="Captain P.")
+        if (a.getNome()=="Ornitorrinco otorrinolaringologista")
             return 3;
         return -1;
     }
@@ -108,6 +120,7 @@ public class Jogo {
         int v;
 
         System.out.println(ilha.getJogador().getTesouro() == 0);
+        System.out.println(ilha.getJogador().getPosição());
         System.out.println(pilha);
         for(int i: marca)
             System.out.print(i + " ");
@@ -138,6 +151,8 @@ public class Jogo {
 
         if(ilha.getNo(ilha.getJogador().getPosição()).isTesouro())
             ilha.getJogador().setTesouro(ilha.getJogador().getVida_atual());
+
+        System.out.println("Criaturas " + ilha.getNo(v).getCriaturas().size());
 
         this.tempo--;
 
@@ -258,13 +273,13 @@ public class Jogo {
     //ALÉM DE QUE CASO ELE MORRA TEMOS QUE VERIFICAR SE FOI POSSÍVEL REVIVER.
     //PROVAVELMETE EM PREPARAR BATALHA VOU VERIFICAR QUAIS DAS DUAS EU CHAMO E PENSAR EM ALGUM
     //JEITO DE COLOCAR A COMUNICAÇÃO COM A TELA NESSA PARTE. 
-    public boolean batalhar(Criatura mob1, Criatura mob2) {
+    public String batalhar(Criatura mob1, Criatura mob2) {
 
         int x = mob1.getPosição();
-        boolean reviveu;
+        String saida = "";
 
         for(int i = 0; i < 3; i++) {
-            mob1.atacar(mob2);
+            saida += infoBatalha(mob1, mob2);
 
             if(mob2.getVida_atual() <= 0) {
 
@@ -284,10 +299,10 @@ public class Jogo {
                     reviveu =  mob2.reviver(ilha.getTotalVertices());
 
                 ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
-                return reviveu;
+                
             }
 
-            mob2.atacar(mob1);
+            saida += infoBatalha(mob2, mob1);
 
             if(mob1.getVida_atual() <= 0) {
 
@@ -307,11 +322,43 @@ public class Jogo {
                     reviveu =  mob1.reviver(ilha.getTotalVertices());
 
                 ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
-                return reviveu;
+            
             }
         }
 
-        return true;
+        return saida;
+
+    }
+
+    private String infoBatalha(Criatura mob1, Criatura mob2) {
+
+        String saida = "";
+        Status aux = mob2.getStatus();
+
+        mob1.atacar(mob2);
+
+        if(mob1 instanceof Jogador)
+            saida += "O jogador ";
+        else
+            saida += ((Monstro) mob1).getNome() + " ";
+            
+        saida += "atacou ";
+
+        if(mob1 instanceof Jogador)
+            saida += "o jogador ";
+        else
+            saida += "o " + ((Monstro) mob1).getNome() + " ";
+
+        saida += "causando " + mob1.getDano() + " de dano.";
+
+        if(!(mob1.getArma() instanceof Rapiera) && !(mob1.getArma() instanceof EspadaFerro)) {
+
+            if(mob2.getStatus() != aux)
+                saida += mob2.getStatus().getDescricao();
+
+        }
+
+        return saida;
 
     }
 
@@ -426,7 +473,7 @@ public class Jogo {
 
         if(mob instanceof Jogador) {
 
-            v = pilha.remove(pilha.size()-1);    //v recebe a próxima posição para se mover. 
+            v = pilha.get(pilha.size()-1);    //v recebe a próxima posição para se mover. 
             ilha.movimentoNormal(v, marca, pilha);
 
         }
