@@ -129,7 +129,7 @@ public class Jogo {
     //Escolhe o próximo movimento do jogador e move todas as crituras.
     public void turno() {
         
-        if(verificaResultado() == -1)
+        if(verificaResultado() != 0)
             return;
 
         int v;
@@ -225,6 +225,7 @@ public class Jogo {
                     reviveu = ((Jogador) mob2).reviver();
                     if(reviveu) {
 
+                        pilha = null;
                         pilha = pilhaCheckPoint;
                         pilhaCheckPoint = null;
 
@@ -423,7 +424,7 @@ public class Jogo {
 
     }
 
-    private int verificaResultado() {
+    public int verificaResultado() {
 
         if(tempo <= 0 || !this.reviveu)
             return -1;

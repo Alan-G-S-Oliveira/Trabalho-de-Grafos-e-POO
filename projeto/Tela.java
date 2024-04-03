@@ -152,7 +152,7 @@ public class Tela extends JFrame implements KeyListener {
         }
         if(jogo.getArmas().size()>0 && !catando && !monstro)
         	texto=texto+"Pressione C para ver os itens no chão";
-        resultado=jogo.getResultado();
+        resultado=jogo.verificaResultado();
         if(resultado==-1) {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
@@ -164,8 +164,9 @@ public class Tela extends JFrame implements KeyListener {
         	else
         		texto+="Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia";
         }
-        texto+="VIDA:"+jogo.getVidaJogador();
-        texto+="Tesouro:"+jogo.getTesouro();
+        texto+=" - VIDA:"+jogo.getVidaJogador();
+        texto+=" - Tesouro:"+jogo.getTesouro();
+        texto+=" - Posição atual:"+jogo.getJogador().getPosição();
     	this.repaint();
     }
     
