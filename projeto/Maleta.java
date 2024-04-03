@@ -3,7 +3,7 @@ package projeto;
 public class Maleta extends Arma {
 
 	public Maleta(){
-		this.setDano(15);
+		this.setDano(5);
 		this.setDurabilidade(3);
 		this.setNome("Maleta");
 	}

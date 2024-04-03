@@ -3,7 +3,7 @@ package projeto;
 public class Rapiera extends Arma {
 	
 	public Rapiera(){
-		this.setDano(25);
+		this.setDano(10);
 		this.setDurabilidade(3);
 		this.setNome("Rapiera");
 	}

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Garra extends Arma {
 	public Garra(){
-		this.setDano(22);
+		this.setDano(10);
 		this.setDurabilidade(3);
 		this.setNome("Garra");
 	}

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Ki extends Arma {
 	public Ki(){
-		this.setDano(27);
+		this.setDano(12);
 		this.setDurabilidade(3);
 		this.setNome("Ki flamejante");
 	}

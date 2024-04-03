@@ -72,8 +72,8 @@ public class Tela extends JFrame implements KeyListener {
 
         // Desenha a última linha
         g.drawString(currentLine, x, y);
-        g.drawString("VIDA:"+jogo.getVidaJogador(), topo_borda, borda);
-        g.drawString("Tesouro:"+jogo.getTesouro(), topo_borda-20, borda);
+        g.drawString("VIDA:"+jogo.getVidaJogador(), getWidth(),y=40);
+        g.drawString("Tesouro:"+jogo.getTesouro(), getWidth(), 80);
     }
     
     @Override
