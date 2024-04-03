@@ -72,8 +72,6 @@ public class Tela extends JFrame implements KeyListener {
 
         // Desenha a última linha
         g.drawString(currentLine, x, y);
-        g.drawString("VIDA:"+jogo.getVidaJogador(), getWidth(),y=40);
-        g.drawString("Tesouro:"+jogo.getTesouro(), getWidth(), 80);
     }
     
     @Override
@@ -166,6 +164,8 @@ public class Tela extends JFrame implements KeyListener {
         	else
         		texto+="Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia";
         }
+        texto+="VIDA:"+jogo.getVidaJogador();
+        texto+="Tesouro:"+jogo.getTesouro();
     	this.repaint();
     }
     
