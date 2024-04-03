@@ -29,6 +29,11 @@ public class Jogo {
         return this.ilha;
 
     }
+    public int getTesouro() {
+
+        return this.getJogador().getTesouro();
+
+    }
 
     public int getTempo() {
 
@@ -186,7 +191,7 @@ public class Jogo {
                 if((!(aux.get(batalha[0]) instanceof Jogador) && !(aux.get(batalha[1]) instanceof Jogador)) || !fuga)
                     saida += batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
                 else
-                    fugir(getJogador());
+                    turno();
 
             }
 
@@ -195,90 +200,6 @@ public class Jogo {
         return saida;
 
     }
-
-    //VOU DÁ UMA MUDADA NISSO.
-
-    /* 
-    public void batalhar(Criatura mob1, Criatura mob2) {
-
-        int x = mob1.getPosição();
-        boolean renasceu=false;
-
-        for(int i = 0; i < 3; i++) {
-
-            //MODIFICAR PRA VERIFICAR SE O JOGADOR TÁ BATALHANDO ANTES DA RODADA.
-
-            if(mob1 instanceof Jogador) {
-
-                //ACHO QUE USA UM MÉTODO STATIC DA CLASSE FACHADA PRA TER A INFORMAÇÃO SE O JOGADOR FUGIU O VAI LUTAR.
-                if(!mob1.getBatalhou()) {
-
-                    int v = pilha.remove(pilha.size()-1);
-                    fugir(mob1);
-                    mob2.atacar(mob1);
-                    break;
-
-                }
-
-            }
-            
-            mob1.atacar(mob2);
-            if(mob2.getVida_atual() <= 0) {
-
-                //agora sim ta fundand0
-                ilha.getNo(x).removeCriatura(mob2);     //Remove a criatura do vértice atual. 
-                mob2.reviver(ilha.getTotalVertices());  //PROBLEMA da tua cabecinha
-                renasceu =true;
-                ilha.getNo(mob2.getPosição()).addCriaturas(mob2);   //Coloca a criatura no novo vértice.
-
-                //VERIFICAR SE FUNCIONA.
-                if(mob2 instanceof Jogador)
-                    pilha = pilhaCheckPoint;
-
-                break;
-
-            }
-
-            if(mob2 instanceof Jogador) {
-
-                //ACHO QUE USA UM MÉTODO STATIC DA CLASSE FACHADA PRA TER A INFORMAÇÃO SE O JOGADOR FUGIU O VAI LUTAR.
-                if(!mob2.getBatalhou()) {
-
-                    int v = pilha.remove(pilha.size()-1);
-                    fugir(mob2);
-                    mob1.atacar(mob2);
-
-                    if(mob1 instanceof Jogador)
-                        pilha = pilhaCheckPoint;
-
-                    break;
-
-                }
-
-            }
-
-            mob2.atacar(mob2);
-            if(mob1.getVida_atual() <= 0) {
-
-                //agora sim ta funfanfo
-                ilha.getNo(x).removeCriatura(mob1);
-                mob1.reviver(ilha.getTotalVertices());
-                renasceu = true;   ///PROBLEMA da tua cabeça isso aqui
-                ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
-                break;
-
-            }
-
-            this.tempo--;
-
-        }
-
-        resultado = verificaFim(renasceu);
-        mob1.setBatalhou(true);
-        mob2.setBatalhou(true);
-
-    }
-    */
 
     //TESTANDO SE ISSO FAZ SENTIDO. É PRECISO VER COMO VAI SER A INTERAÇÃO COM A TELA.
     //SE FOR UMA BATALHA ENTRE DOIS MONSTROS, CHAMA O DE BAIXO E FODA-SE O RESTO.
@@ -309,8 +230,10 @@ public class Jogo {
 
                     }
 
+                    break;
+
                 } else
-                    reviveu =  mob2.reviver(ilha.getTotalVertices());
+                    reviveu = mob2.reviver(ilha.getTotalVertices());
 
                 ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
                 
@@ -331,6 +254,8 @@ public class Jogo {
                         pilhaCheckPoint = null;
 
                     }
+
+                    break;
 
                 } else
                     reviveu =  mob1.reviver(ilha.getTotalVertices());
@@ -379,50 +304,6 @@ public class Jogo {
 
     }
 
-    /* 
-    public void batalhar(Monstro mob1, Monstro mob2) {
-
-        for(int i = 0; i < 3; i++) {
-
-            mob1.atacar(mob2);
-
-            if(mob2.getVida_atual() <= 0) {
-
-                mob2.reviver(ilha.getTotalVertices());
-                break;
-
-            }
-
-            mob2.atacar(mob1);
-
-            if(mob1.getVida_atual() <= 0) {
-
-                mob1.reviver(ilha.getTotalVertices());
-                break;
-
-            }
-
-        }
-
-        mob1.setBatalhou(true);
-        mob2.setBatalhou(true);
-
-    }
-    
-    public int verificaFim(boolean renasceu) {
-
-        if(tempo <= 0 || !renasceu)     //Vefifica se o jogador não pode mais renascer ou se o tempo acabou.
-            return -1;
-
-        Jogador aux = ilha.getJogador();
-
-        if(aux.getPosição() == 0 && aux.getTesouro() != 0)  //Verifica se o jogador voultou com o tesouro para a praia.
-            return 1;
-
-        return 0;   //Segue o fluxo normal do jogo.
-
-    } */
-
     public boolean aplicarEfeitos() {
 
         for(int i = 0; i < ilha.getCriaturas().size(); i++) {
@@ -465,21 +346,27 @@ public class Jogo {
     private int menor(ArrayList<Criatura> criaturas) {
 
         int saida;
+        int indiceSaida;
         
-        if(criaturas.get(0) instanceof Monstro)
+        if(criaturas.get(0) instanceof Monstro) {
             saida = criaturas.get(0).getVida_atual();
-        else
+            indiceSaida = 0;
+        } else {
             saida = criaturas.get(1).getVida_atual();
+            indiceSaida = 1;
+        }
 
         for(int i = 0; i < criaturas.size(); i++) {
 
             //Verifica o monstro com a vida menor que o atual e que ainda não batalhou. 
-            if(saida > criaturas.get(i).getVida_atual() && !criaturas.get(i).getBatalhou() && criaturas.get(i) instanceof Monstro)
+            if(saida > criaturas.get(i).getVida_atual() && !criaturas.get(i).getBatalhou() && criaturas.get(i) instanceof Monstro) {
                 saida = criaturas.get(i).getVida_atual();
+                indiceSaida = i;
+            }
 
         }
 
-        return saida;
+        return indiceSaida;
 
     }
 

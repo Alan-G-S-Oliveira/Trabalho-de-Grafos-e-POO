@@ -125,10 +125,10 @@ public class Tela extends JFrame implements KeyListener {
             case '9':
             	if(!catando)
             		break;
-            	Arma aux=jogo.getJogador().getArma();
+            	Arma aux3=jogo.getJogador().getArma();
             	jogo.getJogador().setArma(lista.get(tecla));
             	lista.remove(tecla);
-            	lista.add(aux);
+            	lista.add(aux3);
             	catando=false;
             	break;
     		default:
@@ -158,9 +158,9 @@ public class Tela extends JFrame implements KeyListener {
         if(resultado==-1) {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
-        	texto="Você ganhou!!! Ouro ganho:"+jogo.getTesouro;
+        	texto="Você ganhou!!! Ouro ganho:"+jogo.getTesouro();
         }
-        if(jogo.getTesouro>aux) {
+        if(jogo.getTesouro()>aux2) {
         	if(monstro)
         		texto+="Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está  terminando um monstro aparece";
         	else
