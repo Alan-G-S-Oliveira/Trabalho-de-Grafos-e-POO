@@ -104,5 +104,12 @@ public abstract class Criatura {
 		posição = variação_posição;
 		return true;
 	}
-
+	public int getDano(){
+		if(this.arma==null)
+			return força;
+		else if(this.arma.getDurabilidade()==0)
+			return força;
+		else
+			return força+arma.getDano();
+	}
 }
