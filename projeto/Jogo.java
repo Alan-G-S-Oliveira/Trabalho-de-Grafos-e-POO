@@ -20,6 +20,7 @@ public class Jogo {
         ilha = new Grafo(caminhoArquivo);
         tempo = 3 * ilha.getTotalVertices();
         resultado = 0;
+        reviveu = true;
 
     }
 
@@ -50,6 +51,12 @@ public class Jogo {
     public ArrayList<Arma> getArmas() {
     	int no=ilha.getJogador().getPosição();
         return this.ilha.getNo(no).getArmas();
+
+    }
+
+    public int getVidaJogador() {
+
+        return this.getJogador().getVida_atual();
 
     }
 
@@ -117,6 +124,9 @@ public class Jogo {
     //Escolhe o próximo movimento do jogador e move todas as crituras.
     public void turno() {
         
+        if(verificaResultado() == -1)
+            return;
+
         int v;
 
         System.out.println(ilha.getJogador().getTesouro() == 0);
@@ -125,6 +135,7 @@ public class Jogo {
         for(int i: marca)
             System.out.print(i + " ");
         System.out.println();
+        System.out.println("Vida: " + getVidaJogador());
 
         if(ilha.getJogador().getTesouro() == 0) {
 
@@ -159,9 +170,10 @@ public class Jogo {
     }
 
     //Prepara as criaturas que vão batalhar e faz a batalha.
-    public void prepararBatalha(boolean fuga) {
+    public String prepararBatalha(boolean fuga) {
 
         ArrayList<Criatura> aux;
+        String saida = "";
 
         for(int i = 0; i < ilha.getTotalVertices(); i++) {
 
@@ -171,14 +183,16 @@ public class Jogo {
                 removeMenores(aux);     //Remove as criaturas com menor vida que ainda não batalharam.
                 int[] batalha = buscaCriaturas(aux);
 
-                if((!(aux.get(batalha[0]) instanceof Jogador) && !(aux.get(batalha[1]) instanceof Jogador)) && !fuga)
-                    batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
+                if((!(aux.get(batalha[0]) instanceof Jogador) && !(aux.get(batalha[1]) instanceof Jogador)) || !fuga)
+                    saida += batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
                 else
                     fugir(getJogador());
 
             }
 
         }
+
+        return saida;
 
     }
 
@@ -344,10 +358,10 @@ public class Jogo {
             
         saida += "atacou ";
 
-        if(mob1 instanceof Jogador)
+        if(mob2 instanceof Jogador)
             saida += "o jogador ";
         else
-            saida += "o " + ((Monstro) mob1).getNome() + " ";
+            saida += "o " + ((Monstro) mob2).getNome() + " ";
 
         saida += "causando " + mob1.getDano() + " de dano.";
 
@@ -357,6 +371,9 @@ public class Jogo {
                 saida += mob2.getStatus().getDescricao();
 
         }
+
+        if(mob1 instanceof Monstro && mob2 instanceof Monstro)
+            saida = "";
 
         return saida;
 
@@ -406,7 +423,7 @@ public class Jogo {
 
     } */
 
-    public boolean aplicarEfetitos() {
+    public boolean aplicarEfeitos() {
 
         for(int i = 0; i < ilha.getCriaturas().size(); i++) {
 
@@ -516,6 +533,17 @@ public class Jogo {
         }
 
         return saida;
+
+    }
+
+    private int verificaResultado() {
+
+        if(tempo <= 0 || !this.reviveu)
+            return -1;
+        else if(getJogador().getPosição() == 0 && getJogador().getTesouro() != 0)
+            return 1;
+        else
+            return 0;
 
     }
 
