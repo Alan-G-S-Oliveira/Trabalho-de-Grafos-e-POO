@@ -17,10 +17,10 @@ public class Monstro extends Criatura {
 					+" em uma ilha, mas o ornitorrinco, que tem dificuldade com datas, chegou um mês antes"
 					+" do previsto e agora teme você descubra o local da reunião.");
 			int variação_vida = random.nextInt(25);
-			int variação_força = random.nextInt(10);
+			int variação_força = random.nextInt(5);
 			setVida_total(75+variação_vida);
 			setVida_atual(75+variação_vida);
-			setForça(10+variação_força);
+			setForça(2+variação_força);
 			setArma(new Rapiera());
 			setStatus(null);
 			break;
@@ -32,10 +32,10 @@ public class Monstro extends Criatura {
 					+ "muito mais irritado. Com medo de que o ornitorrinco destruísse cidades,"
 					+ " ele foi levado para uma ilha inabitada por seu amigo Stark.");
 			int variação_vida = random.nextInt(25);
-			int variação_força = random.nextInt(10);
+			int variação_força = random.nextInt(5);
 			setVida_total(100+variação_vida);
 			setVida_atual(100+variação_vida);
-			setForça(20+variação_força);
+			setForça(10+variação_força);
 			setArma(new Garra());
 			setStatus(null);
 			break;
@@ -48,10 +48,10 @@ public class Monstro extends Criatura {
 					+ " para uma ilha isolada em busca de paz e tranquilidade. Lá, ele desfruta de uma vida pacífica, mas sua herança"
 					+ " genética sayajin faz com que ele não tolere qualquer intruso em seu caminho.");
 			int variação_vida = random.nextInt(25);
-			int variação_força = random.nextInt(10);
+			int variação_força = random.nextInt(6);
 			setVida_total(175+variação_vida);
 			setVida_atual(175+variação_vida);
-			setForça(12+variação_força);
+			setForça(5+variação_força);
 			setArma(new Ki());
 			setStatus(null);
 			break;
@@ -63,10 +63,10 @@ public class Monstro extends Criatura {
 					+ " encontrou essa majestosa criatura, cometeu um erro muito grave ao chamá-la de ornitorrinco, o que fez com que"
 					+ " ele jurasse te matar por não ter se referido a ele como doutor.");
 			int variação_vida = random.nextInt(25);
-			int variação_força = random.nextInt(10);
+			int variação_força = random.nextInt(8);
 			setVida_total(25+variação_vida);
 			setVida_atual(25+variação_vida);
-			setForça(8+variação_força);
+			setForça(3+variação_força);
 			setArma(new Maleta());
 			setStatus(null);
 			break;
