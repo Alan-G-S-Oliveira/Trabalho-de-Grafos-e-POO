@@ -69,8 +69,11 @@ public class Tela extends JFrame implements KeyListener {
                 currentLine = word;
             }
         }
+
         // Desenha a última linha
         g.drawString(currentLine, x, y);
+        g.drawString("VIDA:"+jogo.getVidaJogador(), topo_borda, borda);
+        g.drawString("Tesouro:"+jogo.getTesouro(), topo_borda-20, borda);
     }
     
     @Override
@@ -79,6 +82,8 @@ public class Tela extends JFrame implements KeyListener {
     	char tecla=e.getKeyChar();
     	ArrayList<Arma> lista=jogo.getArmas();
     	texto="";
+    	int aux=jogo.getCriatura();
+    	int aux2=jogo.getTesouro();
     	switch (tecla) {
             case ' ':
                 if(catando||monstro){
@@ -94,8 +99,11 @@ public class Tela extends JFrame implements KeyListener {
     			break;
             case 'l':
             case 'L':
-            	if(monstro)
+            	if(monstro) {
             		texto=texto+jogo.prepararBatalha(false);
+            		if(aux!=jogo.getCriatura())
+            			texto+="Você derrotou a criatura";
+            	}
                 break;
             case 'c':
             case 'C':
@@ -150,7 +158,13 @@ public class Tela extends JFrame implements KeyListener {
         if(resultado==-1) {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
-        	texto="Você ganhou!!!";
+        	texto="Você ganhou!!! Ouro ganho:"+jogo.getTesouro;
+        }
+        if(jogo.getTesouro>aux) {
+        	if(monstro)
+        		texto+="Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está  terminando um monstro aparece";
+        	else
+        		texto+="Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia";
         }
     	this.repaint();
     }
