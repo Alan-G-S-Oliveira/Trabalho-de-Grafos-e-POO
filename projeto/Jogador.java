@@ -62,4 +62,11 @@ public class Jogador extends Criatura {
 			return false;
 		}
 	}
+	@Override
+	public void receberDano(int a) {
+		super.receberDano(a);
+		if(tesouro>getVida_atual()) {
+			tesouro=getVida_atual();
+		}
+	}
 }
