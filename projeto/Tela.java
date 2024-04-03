@@ -95,7 +95,7 @@ public class Tela extends JFrame implements KeyListener {
             case 'l':
             case 'L':
             	if(monstro)
-            		jogo.prepararBatalha(false);
+            		texto=texto+jogo.prepararBatalha(false);
                 break;
             case 'c':
             case 'C':
