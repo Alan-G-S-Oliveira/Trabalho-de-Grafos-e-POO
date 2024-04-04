@@ -55,6 +55,7 @@ public class Jogador extends Criatura {
 			setPosição(posisao_check);
 			setArma(arma_check);
 			setVida_atual(vida_atual_check);
+			setTesouro(0);
 			colar = colar_check;
 			this.posisao_check = -1;
 			return true;
