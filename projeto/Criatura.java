@@ -73,7 +73,10 @@ public abstract class Criatura {
 	}
 	
 	public void receberDano(int dano) { //Função para dar dano imediato de armadilhas.
-		vida_atual -= dano;
+		if(dano > vida_atual)
+			vida_atual = 0;
+		else
+			vida_atual -= dano;
 	}
 	
 	public void receberCura(int cura) {

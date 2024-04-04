@@ -22,7 +22,7 @@ public class Bau implements Riqueza {
 		}
 	}
 	@Override
-	public Object receberRiqueza(Jogador a) {
+	public Object receberRiqueza() {
 		if(this.aberto) {
 			return null;
 		}

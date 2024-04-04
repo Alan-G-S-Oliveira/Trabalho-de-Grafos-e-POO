@@ -12,6 +12,7 @@ public class Jogo {
     private boolean reviveu;
 
     private int[] marca;
+    private int[] marcaCheckPoint;
     private ArrayList<Integer> pilhaCheckPoint;
     private ArrayList<Integer> pilha;
 
@@ -32,6 +33,36 @@ public class Jogo {
     public int getTesouro() {
 
         return this.getJogador().getTesouro();
+
+    }
+
+    public boolean hasBau() {
+
+        boolean teste;
+        Bau aux = ilha.getNo(getJogador().getPosição()).getRiqueza();
+
+        if(aux != null) {
+            if(aux.isAberto())
+                teste = false;
+            else
+                teste = true;
+        } else  
+            teste = false;
+        
+        return teste;
+
+    }
+
+    public void itemBau() {
+
+        No noAtual = ilha.getNo(getJogador().getPosição());
+        Bau bau = noAtual.getRiqueza();
+        Object item = bau.receberRiqueza();
+
+        if(item instanceof Arma)
+            noAtual.addArma((Arma) item);
+        else
+            getJogador().setColar((Colar) item);
 
     }
 
@@ -160,6 +191,7 @@ public class Jogo {
             ilha.getNo(v).updateCheckPoint(false);
             ilha.getJogador().salvar_check();
             pilhaCheckPoint = copy();
+            marcaCheckPoint = marca.clone();
 
         }
 
@@ -195,17 +227,13 @@ public class Jogo {
 
         }
 
+        for(int i = 0; i < ilha.getCriaturas().size(); i++) 
+            ilha.getCriaturas().get(i).setBatalhou(false);
+
         return saida;
 
     }
 
-    //TESTANDO SE ISSO FAZ SENTIDO. É PRECISO VER COMO VAI SER A INTERAÇÃO COM A TELA.
-    //SE FOR UMA BATALHA ENTRE DOIS MONSTROS, CHAMA O DE BAIXO E FODA-SE O RESTO.
-    //SE O JOGADOR TÁ NO MEIO CHAMA ESSE PRIMEIRO. MAS PRA ISSO É PRECISO TER A INFORMAÇÃO 
-    //SE O JOGADOR FUGIU OU NÃO NO COMEÇO DE CADA TURNO, ESSA INFORMAÇÃO VEM DA TELA.
-    //ALÉM DE QUE CASO ELE MORRA TEMOS QUE VERIFICAR SE FOI POSSÍVEL REVIVER.
-    //PROVAVELMETE EM PREPARAR BATALHA VOU VERIFICAR QUAIS DAS DUAS EU CHAMO E PENSAR EM ALGUM
-    //JEITO DE COLOCAR A COMUNICAÇÃO COM A TELA NESSA PARTE. 
     public String batalhar(Criatura mob1, Criatura mob2) {
 
         int x = mob1.getPosição();
@@ -223,9 +251,10 @@ public class Jogo {
                     reviveu = ((Jogador) mob2).reviver();
                     if(reviveu) {
 
-                        pilha = null;
                         pilha = pilhaCheckPoint;
+                        marca = marcaCheckPoint;
                         pilhaCheckPoint = null;
+                        marcaCheckPoint = null;
 
                     }
 
@@ -250,7 +279,9 @@ public class Jogo {
                     if(reviveu){
 
                         pilha = pilhaCheckPoint;
+                        marca = marcaCheckPoint;
                         pilhaCheckPoint = null;
+                        marcaCheckPoint = null;
 
                     }
 
@@ -259,7 +290,7 @@ public class Jogo {
                 } else
                     reviveu =  mob1.reviver(ilha.getTotalVertices());
 
-                ilha.getNo(mob1.getPosição()).addCriaturas(mob2);
+                ilha.getNo(mob1.getPosição()).addCriaturas(mob1);
             
             }
         }
