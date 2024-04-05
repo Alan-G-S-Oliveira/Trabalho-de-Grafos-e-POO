@@ -27,7 +27,7 @@ public class Bau implements Riqueza {
 			return null;
 		}
 		else {
-			aberto=false;
+			aberto=true;
 			return this.sortear();
 		}
 	}

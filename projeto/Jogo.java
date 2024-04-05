@@ -49,6 +49,13 @@ public class Jogo {
         } else  
             teste = false;
         
+        Arma baka = getJogador().getArma();
+
+        if(baka != null)
+            System.out.println(baka.getNome());
+        else
+            System.out.println("yamete kudasai");
+
         return teste;
 
     }
@@ -204,6 +211,9 @@ public class Jogo {
         if(ilha.getNo(ilha.getJogador().getPosição()).isTesouro())
             ilha.getJogador().setTesouro(ilha.getJogador().getVida_atual());
 
+        if(getJogador().colar != null)
+            getJogador().getColar().aplicarEfeito(getJogador());
+
         System.out.println("Criaturas " + ilha.getNo(v).getCriaturas().size());
 
         this.tempo--;
@@ -299,6 +309,14 @@ public class Jogo {
                 ilha.getNo(mob1.getPosição()).addCriaturas(mob1);
             
             }
+        }
+
+        if(mob1 instanceof Jogador || mob2 instanceof Jogador) {
+
+            System.out.println("Vida dos sobreviventes:");
+            System.out.println(mob1.getVida_atual());
+            System.out.println(mob2.getVida_atual());
+
         }
 
         return saida;

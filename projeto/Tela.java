@@ -119,6 +119,7 @@ public class Tela extends JFrame implements KeyListener {
             		bau=false;
             	}
             	break;
+            case '0':
             case '1':
             case '2':
             case '3':
@@ -131,9 +132,11 @@ public class Tela extends JFrame implements KeyListener {
             	if(catando){
             		Jogador jogador=jogo.getJogador();
             		Arma arma_velha=jogador.getArma();
-            		jogador.setArma(lista.get(tecla));
-            		lista.remove(tecla);
-            		lista.add(arma_velha);
+            		jogador.setArma(lista.get(tecla - '0'));
+                    System.out.println("Armas" + lista.size());
+            		lista.remove(tecla - '0');
+                    if(arma_velha != null)
+            		    lista.add(arma_velha);
             		catando=false;
             	}
             	break;

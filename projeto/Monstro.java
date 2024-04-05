@@ -57,7 +57,7 @@ public class Monstro extends Criatura {
 			break;
 		}
 		case 3:{
-			this.nome = "Ornitorrinco otorrinolaringologista";
+			this.nome = "Ornitorrincolaringologista";
 			this.description = ("Já se perguntou por que os monstros se curam com o tempo? A culpa é deste ornitorrinco que veio para"
 					+ " esta ilha unicamente para ajudar os outros, independentemente da espécie. No entanto, infelizmente, quando você"
 					+ " encontrou essa majestosa criatura, cometeu um erro muito grave ao chamá-la de ornitorrinco, o que fez com que"
