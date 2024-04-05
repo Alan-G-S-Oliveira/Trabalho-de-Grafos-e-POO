@@ -171,10 +171,10 @@ public class Jogo {
     }
 
     //Escolhe o próximo movimento do jogador e move todas as crituras.
-    public void turno() {
+    public String turno() {
         
         if(verificaResultado() != 0)
-            return;
+            return "";
 
         int v;
 
@@ -214,9 +214,17 @@ public class Jogo {
         if(getJogador().colar != null)
             getJogador().getColar().aplicarEfeito(getJogador());
 
-        System.out.println("Criaturas " + ilha.getNo(v).getCriaturas().size());
+        Efeito_de_terreno efeito = ilha.getNo(getJogador().getPosição()).getEfeito();
+        aplicarEfeitos();
+
+        //VERIFICAR SE ELE MORRE.
 
         this.tempo--;
+
+        if(efeito != null)
+            return efeito.getComment();
+        else
+            return "";
 
     }
 
@@ -236,8 +244,37 @@ public class Jogo {
 
                 if((!(aux.get(batalha[0]) instanceof Jogador) && !(aux.get(batalha[1]) instanceof Jogador)) || !fuga)
                     saida += batalhar(aux.get(batalha[0]), aux.get(batalha[1]));
-                else
+                else {
+
+                    Random num = new Random();
+                    if(num.nextInt(2) == 0) {
+
+                        if(aux.get(batalha[0]) instanceof Monstro)
+                            aux.get(batalha[0]).atacar(getJogador());
+                        else
+                            aux.get(batalha[1]).atacar(getJogador());
+
+                    }
+
+                    if(getJogador().getVida_atual() <= 0) {
+
+                        reviveu = getJogador().reviver();
+                        if(reviveu) {
+
+                            pilha = pilhaCheckPoint;
+                            marca = marcaCheckPoint;
+                            pilhaCheckPoint = null;
+                            marcaCheckPoint = null;
+
+                        }
+
+                        ilha.getNo(getJogador().getPosição()).addCriaturas(getJogador());
+
+                    }
+
                     turno();
+
+                }
 
             }
 
@@ -254,6 +291,14 @@ public class Jogo {
 
         int x = mob1.getPosição();
         String saida = "";
+
+        if(mob1 instanceof Jogador || mob2 instanceof Jogador) {
+
+            System.out.println("Vida antes da batalha:");
+            System.out.println(mob1.getVida_atual());
+            System.out.println(mob2.getVida_atual());
+
+        }
 
         for(int i = 0; i < 3; i++) {
             saida += infoBatalha(mob1, mob2);
@@ -274,12 +319,12 @@ public class Jogo {
 
                     }
 
-                    break;
-
-                } else
+                } else 
                     reviveu = mob2.reviver(ilha.getTotalVertices());
 
                 ilha.getNo(mob2.getPosição()).addCriaturas(mob2);
+
+                break;
                 
             }
 
@@ -301,19 +346,19 @@ public class Jogo {
 
                     }
 
-                    break;
-
                 } else
                     reviveu =  mob1.reviver(ilha.getTotalVertices());
 
                 ilha.getNo(mob1.getPosição()).addCriaturas(mob1);
+
+                break;
             
             }
         }
 
         if(mob1 instanceof Jogador || mob2 instanceof Jogador) {
 
-            System.out.println("Vida dos sobreviventes:");
+            System.out.println("Vida depois da batalha:");
             System.out.println(mob1.getVida_atual());
             System.out.println(mob2.getVida_atual());
 

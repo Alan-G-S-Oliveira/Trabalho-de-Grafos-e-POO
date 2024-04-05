@@ -29,15 +29,15 @@ public class Tela extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(x_size,y_size);
         setLocationRelativeTo(null);
-        this.jogo=new Jogo("\\Users\\alang\\OneDrive\\Área de Trabalho\\Programação\\Trabalho-de-Grafos-e-POO\\projeto\\Dados.csv");
+        this.jogo=new Jogo("projeto/Dados.csv");
         this.jogo.inicial();
-        ImageIcon icon = new ImageIcon("\\Users\\alang\\OneDrive\\Área de Trabalho\\Programação\\Trabalho-de-Grafos-e-POO\\imagens\\ilha.jpg");
+        ImageIcon icon = new ImageIcon("imagens/ilha.jpg");
         map=icon.getImage();
         y_size=icon.getIconHeight()+borda+topo_borda;
         x_size=icon.getIconWidth()+2*borda+espaco;
         setSize(x_size, y_size);
         for(int i=0;i<4;i++) {
-        	icon=new ImageIcon("\\Users\\alang\\OneDrive\\Área de Trabalho\\Programação\\Trabalho-de-Grafos-e-POO\\imagens\\monstro"+i+".jpg");
+        	icon=new ImageIcon("imagens/monstro"+i+".jpg");
         	monstros[i]=icon.getImage();
         }
         
