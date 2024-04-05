@@ -116,6 +116,7 @@ public class Tela extends JFrame implements KeyListener {
             case 'B':
             	if(bau) {
             		jogo.itemBau();
+            		bau=false;
             	}
             	break;
             case '1':
