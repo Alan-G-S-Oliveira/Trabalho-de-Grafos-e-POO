@@ -18,6 +18,7 @@ public class Tela extends JFrame implements KeyListener {
 	private Jogo jogo;
 	private boolean monstro=false;
     private boolean catando=false;
+    private boolean bau=false;
     private int resultado=0;
     private Image map;
     String texto="Você chegou em uma nova e inexplorada ilha, onde lhe é prometido inestimaveis tesouro. Pressione a tecla espaço para andar entre os pontos da ilha.";
@@ -81,7 +82,6 @@ public class Tela extends JFrame implements KeyListener {
     	ArrayList<Arma> lista=jogo.getArmas();
     	texto="";
     	int aux=jogo.getCriatura();
-    	int aux2=jogo.getTesouro();
     	switch (tecla) {
             case ' ':
                 if(catando||monstro){
@@ -112,6 +112,12 @@ public class Tela extends JFrame implements KeyListener {
             	if(catando) 
             		catando=false;
             	break;
+            case 'b':
+            case 'B':
+            	if(bau) {
+            		jogo.itemBau();
+            	}
+            	break;
             case '1':
             case '2':
             case '3':
@@ -121,57 +127,63 @@ public class Tela extends JFrame implements KeyListener {
             case '7':
             case '8':
             case '9':
-            	if(!catando)
-            		break;
-            	Arma aux3=jogo.getJogador().getArma();
-            	jogo.getJogador().setArma(lista.get(tecla));
-            	lista.remove(tecla);
-            	lista.add(aux3);
-            	catando=false;
+            	if(catando){
+            		Jogador jogador=jogo.getJogador();
+            		Arma arma_velha=jogador.getArma();
+            		jogador.setArma(lista.get(tecla));
+            		lista.remove(tecla);
+            		lista.add(arma_velha);
+            		catando=false;
+            	}
             	break;
     		default:
              //nada
      }
     	
+    	lista=jogo.getArmas();
     	this.atual_monstro=jogo.getCriatura();
         if (atual_monstro==-1) {
             monstro=false;
-            if(!catando)
-            	texto= texto+"Pressione a tecla espaço para andar entre os pontos da ilha.";
+            
+            if(jogo.hasBau()) {
+            	bau=true;
+            	texto+=" Você achou um bau, pressione B para abri-lo.";
+            }
+            if(!catando) {
+            	texto= texto+" Pressione a tecla espaço para andar entre os pontos da ilha.";
+            	if(lista.size()>0) {
+            		texto+=" Ha itens no chão, pressione C para vê-los.";
+            	}
+        	}
             else {
             	int n=lista.size();
         		texto="Pressione o numero da arma para equipar ela \n";
         		for(int i=0; i<n; i++) {
         			texto=texto+i+":"+lista.get(i).getNome()+lista.get(i).getDurabilidade()+"\n";
         		}
-        		texto=texto+"Pressione S para sair.\n";
+        		texto=texto+" Pressione S para sair.\n";
             }
         }else{
             monstro=true;
-            texto=texto+"Pressione L para lutar ou F para fugir.";
+            texto=texto+" Pressione L para lutar ou F para fugir.";
         }
-        if(jogo.getArmas().size()>0 && !catando && !monstro)
-        	texto=texto+"Pressione C para ver os itens no chão";
         resultado=jogo.verificaResultado();
+       	int ouro=jogo.getTesouro();
+        if(jogo.getTesouro()>ouro) {
+        	if(monstro)
+        		texto+=" Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está  terminando um monstro aparece";
+        	else
+        		texto+=" Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia";
+        }
+        texto+=" - VIDA:"+jogo.getVidaJogador();
+        texto+=" - Tesouro:"+jogo.getTesouro();
+        texto+=" - Posição atual:"+jogo.getJogador().getPosição();
         if(resultado==-1) {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
         	texto="Você ganhou!!! Ouro ganho:"+jogo.getTesouro();
         }
-        if(jogo.getTesouro()>aux2) {
-        	if(monstro)
-        		texto+="Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está  terminando um monstro aparece";
-        	else
-        		texto+="Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia";
-        }
-        texto+=" - VIDA:"+jogo.getVidaJogador();
-        texto+=" - Tesouro:"+jogo.getTesouro();
-        texto+=" - Posição atual:"+jogo.getJogador().getPosição();
     	this.repaint();
-    }
-    
-    public void jogar() {
-    	  	
     }
 
 	@Override
