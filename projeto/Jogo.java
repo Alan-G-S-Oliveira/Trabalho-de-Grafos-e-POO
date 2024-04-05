@@ -39,7 +39,7 @@ public class Jogo {
     public boolean hasBau() {
 
         boolean teste;
-        Bau aux = ilha.getNo(getJogador().getPosição()).getRiqueza();
+        Bau aux = (Bau)ilha.getNo(getJogador().getPosição()).getRiqueza();
 
         if(aux != null) {
             if(aux.isAberto())
@@ -53,16 +53,22 @@ public class Jogo {
 
     }
 
-    public void itemBau() {
+    public boolean itemBau() {
 
-        No noAtual = ilha.getNo(getJogador().getPosição());
-        Bau bau = noAtual.getRiqueza();
-        Object item = bau.receberRiqueza();
+        Nos noAtual = ilha.getNo(getJogador().getPosição());
+        Bau bau = (Bau)noAtual.getRiqueza();
+        Object item = bau.receberRiqueza(getJogador());
 
         if(item instanceof Arma)
             noAtual.addArma((Arma) item);
-        else
+        else {
+
             getJogador().setColar((Colar) item);
+            return true;
+
+        }
+
+        return false;
 
     }
 
