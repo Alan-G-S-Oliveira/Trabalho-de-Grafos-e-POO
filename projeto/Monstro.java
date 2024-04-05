@@ -18,8 +18,8 @@ public class Monstro extends Criatura {
 					+" do previsto e agora teme você descubra o local da reunião.");
 			int variação_vida = random.nextInt(25);
 			int variação_força = random.nextInt(5);
-			setVida_total(75+variação_vida);
-			setVida_atual(75+variação_vida);
+			setVida_total(20+variação_vida);
+			setVida_atual(20+variação_vida);
 			setForça(2+variação_força);
 			setArma(new Rapiera());
 			setStatus(null);
@@ -49,8 +49,8 @@ public class Monstro extends Criatura {
 					+ " genética sayajin faz com que ele não tolere qualquer intruso em seu caminho.");
 			int variação_vida = random.nextInt(25);
 			int variação_força = random.nextInt(6);
-			setVida_total(175+variação_vida);
-			setVida_atual(175+variação_vida);
+			setVida_total(30+variação_vida);
+			setVida_atual(30+variação_vida);
 			setForça(5+variação_força);
 			setArma(new Ki());
 			setStatus(null);
