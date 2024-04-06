@@ -2,6 +2,11 @@ package projeto;
 
 import java.util.ArrayList;
 
+import Criaturas.Criatura;
+import Itens.Arma;
+import efeitos.Efeito_de_terreno;
+import recompensas.Riqueza;
+
 public class Nos {
 
     private ArrayList<Criatura> criaturas;

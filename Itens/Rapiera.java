@@ -1,4 +1,6 @@
-package projeto;
+package Itens;
+
+import Criaturas.Criatura;
 
 public class Rapiera extends Arma {
 	

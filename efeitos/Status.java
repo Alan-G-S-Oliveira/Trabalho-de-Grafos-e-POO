@@ -1,4 +1,4 @@
-package projeto;
+package efeitos;
 
 public abstract class Status implements Efeito {
 	private String nome;

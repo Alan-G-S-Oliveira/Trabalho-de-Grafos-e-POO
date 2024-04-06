@@ -1,6 +1,9 @@
-package projeto;
+package Itens;
 
 import java.util.Random;
+
+import Criaturas.Criatura;
+import efeitos.Envenenado;
 
 public class Garra extends Arma {
 	public Garra(){

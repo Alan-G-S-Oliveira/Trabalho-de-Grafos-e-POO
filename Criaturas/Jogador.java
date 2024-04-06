@@ -1,4 +1,8 @@
-package projeto;
+package Criaturas;
+
+import Itens.Arma;
+import Itens.Colar;
+import efeitos.Status;
 
 public class Jogador extends Criatura {
 	int tesouro; //Variavel responsavel por guardar a quantidade de tesouro.
@@ -9,7 +13,7 @@ public class Jogador extends Criatura {
 	Colar colar_check; ////Variavel responsavel por guardar a colar que o jogador esta usando no checkpoint.
 	Status status_check;
 	
-	Jogador(int vida_total,int forca,Arma arma,int posisao,Status status,Colar colar){
+	public Jogador(int vida_total,int forca,Arma arma,int posisao,Status status,Colar colar){
 		super(vida_total,forca,arma,posisao,status);
 		this.vida_atual_check = vida_total;
 		this.arma_check = arma;

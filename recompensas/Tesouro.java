@@ -1,4 +1,6 @@
-package projeto;
+package recompensas;
+
+import Criaturas.Jogador;
 
 public class Tesouro implements Riqueza {
 

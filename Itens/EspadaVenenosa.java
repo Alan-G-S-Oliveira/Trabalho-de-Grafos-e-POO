@@ -1,4 +1,8 @@
-package projeto;
+package Itens;
+
+import Criaturas.Criatura;
+import efeitos.Efeito;
+import efeitos.Envenenado;
 
 public class EspadaVenenosa extends Arma implements Efeito {
 	

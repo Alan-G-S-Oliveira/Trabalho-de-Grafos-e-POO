@@ -1,4 +1,6 @@
-package projeto;
+package efeitos;
+
+import Criaturas.Criatura;
 
 public class Armadilha_de_dardos extends Efeito_de_terreno implements Efeito{
 	public Armadilha_de_dardos() {

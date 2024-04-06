@@ -1,4 +1,6 @@
-package projeto;
+package Itens;
+
+import Criaturas.Criatura;
 
 public class ColarCura extends Colar {
 	private int cura=2;

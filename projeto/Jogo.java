@@ -4,6 +4,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Criaturas.Criatura;
+import Criaturas.Jogador;
+import Criaturas.Monstro;
+import Itens.Arma;
+import Itens.Colar;
+import Itens.EspadaFerro;
+import Itens.Rapiera;
+import efeitos.Efeito_de_terreno;
+import efeitos.Status;
+import recompensas.Bau;
+
 public class Jogo {
     
     private Grafo ilha;
@@ -217,7 +228,7 @@ public class Jogo {
         if(ilha.getNo(ilha.getJogador().getPosição()).isTesouro())
             ilha.getJogador().setTesouro(ilha.getJogador().getVida_atual());
 
-        if(getJogador().colar != null)
+        if(getJogador().getColar() != null)
             getJogador().getColar().aplicarEfeito(getJogador());
 
         Efeito_de_terreno efeito = ilha.getNo(getJogador().getPosição()).getEfeito();

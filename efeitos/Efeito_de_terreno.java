@@ -1,4 +1,6 @@
-package projeto;
+package efeitos;
+
+import Criaturas.Criatura;
 
 public abstract class Efeito_de_terreno {
 	String nome;

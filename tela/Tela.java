@@ -1,5 +1,10 @@
-package projeto;
+package tela;
 import javax.swing.*;
+
+import Criaturas.Jogador;
+import Itens.Arma;
+import projeto.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -211,22 +216,6 @@ public class Tela extends JFrame implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-            Tela jogo = new Tela();
-            jogo.setVisible(true);
-            jogo.repaint(); // Certifique-se de que a tela seja atualizada
-            } catch (Exception exc) {
-
-                System.out.println(exc);
-                exc.printStackTrace();
-
-            }
-
-        });
     }
 }
 

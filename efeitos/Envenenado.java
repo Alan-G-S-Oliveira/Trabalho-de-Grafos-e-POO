@@ -1,4 +1,6 @@
-package projeto;
+package efeitos;
+
+import Criaturas.Criatura;
 
 public class Envenenado extends Status {
 

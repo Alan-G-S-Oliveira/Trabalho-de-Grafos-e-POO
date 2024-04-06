@@ -1,6 +1,9 @@
-package projeto;
+package Criaturas;
 
 import java.util.Random;
+
+import Itens.Arma;
+import efeitos.Status;
 
 public abstract class Criatura {
 	private int vida_total; //Variavel responsavel por guardar a vida total da Criatura.

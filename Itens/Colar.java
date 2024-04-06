@@ -1,4 +1,6 @@
-package projeto;
+package Itens;
+
+import efeitos.Efeito;
 
 public abstract class Colar implements Efeito{
 	private String nome;

@@ -1,5 +1,11 @@
-package projeto;
+package Criaturas;
 import java.util.Random;
+
+import Itens.Garra;
+import Itens.Ki;
+import Itens.Maleta;
+import Itens.Rapiera;
+
 import java.util.ArrayList;
 
 public class Monstro extends Criatura {
@@ -7,7 +13,7 @@ public class Monstro extends Criatura {
 	String description;
 	Random random = new Random();
 	
-	Monstro(){ //refazer
+	public Monstro(){ //refazer
 		int monstro = random.nextInt(4);
 		switch (monstro) {
 		case 0: {

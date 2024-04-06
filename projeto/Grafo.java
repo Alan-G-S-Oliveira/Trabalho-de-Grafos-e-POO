@@ -1,8 +1,17 @@
 package projeto;
 
 import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 import java.util.Random;
+
+import Criaturas.Criatura;
+import Criaturas.Jogador;
+import Criaturas.Monstro;
+import efeitos.Apedrejamento;
+import efeitos.Armadilha_de_dardos;
+import efeitos.Lagartas_de_fogo;
+import recompensas.Bau;
 
 public class Grafo {
     

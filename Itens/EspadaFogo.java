@@ -1,4 +1,8 @@
-package projeto;
+package Itens;
+
+import Criaturas.Criatura;
+import efeitos.Efeito;
+import efeitos.Queimado;
 
 public class EspadaFogo extends Arma implements Efeito {
 	

@@ -1,4 +1,4 @@
-package projeto;
+package Itens;
 
 public class EspadaFerro extends Arma {
 

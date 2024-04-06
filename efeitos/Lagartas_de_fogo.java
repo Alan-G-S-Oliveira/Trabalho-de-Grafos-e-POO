@@ -1,4 +1,6 @@
-package projeto;
+package efeitos;
+
+import Criaturas.Criatura;
 
 public class Lagartas_de_fogo extends Efeito_de_terreno implements Efeito{
 	public Lagartas_de_fogo() {

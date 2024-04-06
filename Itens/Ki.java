@@ -1,6 +1,9 @@
-package projeto;
+package Itens;
 
 import java.util.Random;
+
+import Criaturas.Criatura;
+import efeitos.Queimado;
 
 public class Ki extends Arma {
 	public Ki(){

@@ -1,6 +1,12 @@
-package projeto;
+package recompensas;
 
 import java.util.Random;
+
+import Criaturas.Jogador;
+import Itens.ColarCura;
+import Itens.EspadaFerro;
+import Itens.EspadaFogo;
+import Itens.EspadaVenenosa;
 
 public class Bau implements Riqueza {
 	private boolean aberto;
