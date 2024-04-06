@@ -392,7 +392,7 @@ public class Jogo {
 
         if(!(mob1.getArma() instanceof Rapiera) && !(mob1.getArma() instanceof EspadaFerro)) {
 
-            if(mob2.getStatus() != aux)
+            if((mob2.getStatus() != aux) && (mob1 instanceof Monstro))
                 saida += mob2.getStatus().getDescricao();
 
         }
@@ -412,13 +412,12 @@ public class Jogo {
 
         for(int i = 0; i < criaturas.size(); i++) {
 
-            no = ilha.getNo(criaturas.get(i));
+            no = ilha.getNo(criaturas.get(i).getPosição());
             if(no.getEfeito() != null) {
 
                 no.getEfeito().aplicarEfeito(criaturas.get(i));
                 if(criaturas.get(i) instanceof Jogador)
                     saida = no.getEfeito().getNome();
-
             }
 
         }

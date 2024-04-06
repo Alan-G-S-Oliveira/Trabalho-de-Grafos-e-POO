@@ -22,7 +22,7 @@ public class Tela extends JFrame implements KeyListener {
     private int resultado=0;
     private Image map;
     String texto="Você chegou em uma nova e inexplorada ilha, onde lhe é prometido inestimaveis tesouro. Pressione a tecla espaço para andar entre os pontos da ilha.";
-    Image[] monstros = new Image[4];
+    Image[] monstros = new Image[6];
 
     public Tela() throws FileNotFoundException {
         setTitle("Meu Jogo");
@@ -40,7 +40,10 @@ public class Tela extends JFrame implements KeyListener {
         	icon=new ImageIcon("imagens/monstro"+i+".jpg");
         	monstros[i]=icon.getImage();
         }
-        
+        icon=new ImageIcon("imagens/Baú.jpg");
+    	monstros[4]=icon.getImage();
+    	icon=new ImageIcon("imagens/final.jpg");
+    	monstros[5]=icon.getImage();
         this.addKeyListener(this);
  
         this.setVisible(true);
@@ -189,7 +192,10 @@ public class Tela extends JFrame implements KeyListener {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
         	texto="Você ganhou!!! Ouro ganho:"+jogo.getTesouro();
+        	atual_monstro=5;
         }
+        if(!monstro&&jogo.hasBau())
+        	atual_monstro=4;
     	this.repaint();
     }
 

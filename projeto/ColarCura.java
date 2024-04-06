@@ -1,7 +1,7 @@
 package projeto;
 
 public class ColarCura extends Colar {
-	private int cura=10;
+	private int cura=2;
 	
 	public ColarCura() {
 		this.setNome("Benção de Rafael");
