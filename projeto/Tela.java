@@ -13,16 +13,16 @@ public class Tela extends JFrame implements KeyListener {
 	private static final long serialVersionUID = 810561910264656891L;
 	int x_size=1600,y_size=800;
 	int borda=8,topo_borda=32;
-	int atual_monstro=0;
+	int atual_imagem=0;
 	int espaco=300;
 	private Jogo jogo;
-	private boolean monstro=false;
+	private boolean imagem=false;
     private boolean catando=false;
     private boolean bau=false;
     private int resultado=0;
     private Image map;
     String texto="Você chegou em uma nova e inexplorada ilha, onde lhe é prometido inestimaveis tesouro. Pressione a tecla espaço para andar entre os pontos da ilha.";
-    Image[] monstros = new Image[6];
+    Image[] imagems = new Image[6];
 
     public Tela() throws FileNotFoundException {
         setTitle("Meu Jogo");
@@ -38,12 +38,12 @@ public class Tela extends JFrame implements KeyListener {
         setSize(x_size, y_size);
         for(int i=0;i<4;i++) {
         	icon=new ImageIcon("imagens/monstro"+i+".jpg");
-        	monstros[i]=icon.getImage();
+        	imagems[i]=icon.getImage();
         }
         icon=new ImageIcon("imagens/Baú.jpg");
-    	monstros[4]=icon.getImage();
+    	imagems[4]=icon.getImage();
     	icon=new ImageIcon("imagens/final.jpg");
-    	monstros[5]=icon.getImage();
+    	imagems[5]=icon.getImage();
         this.addKeyListener(this);
  
         this.setVisible(true);
@@ -54,15 +54,15 @@ public class Tela extends JFrame implements KeyListener {
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(map,borda,topo_borda,this);
-        if(monstro) {
-        	g.drawImage(monstros[atual_monstro], borda + map.getWidth(this), topo_borda, this);
+        if(imagem) {
+        	g.drawImage(imagems[atual_imagem], borda + map.getWidth(this), topo_borda, this);
         }
         String[] words = texto.split(" ");
         String currentLine = "";
         int x = borda + map.getWidth(this);
         int y = 300;
-        if(monstro)
-            y = topo_borda + monstros[atual_monstro].getHeight(this) + 20;
+        if(imagem)
+            y = topo_borda + imagems[atual_imagem].getHeight(this) + 20;
         int maxWidth = getWidth() - x - borda;
         for (String word : words) {
             if (g.getFontMetrics().stringWidth(currentLine + " " + word) < maxWidth) {
@@ -87,7 +87,7 @@ public class Tela extends JFrame implements KeyListener {
     	int aux=jogo.getCriatura();
     	switch (tecla) {
             case ' ':
-                if(catando||monstro){
+                if(catando||(atual_imagem>-1&&atual_imagem<4)){
                     break;
                 }else{
                     texto+=jogo.turno();
@@ -95,12 +95,12 @@ public class Tela extends JFrame implements KeyListener {
                 }
     		case 'f':
     		case 'F':
-    			if(monstro)
+    			if(imagem)
                 	jogo.prepararBatalha(true);
     			break;
             case 'l':
             case 'L':
-            	if(monstro) {
+            	if(imagem) {
             		texto=texto+jogo.prepararBatalha(false);
             		if(aux!=jogo.getCriatura())
             			texto+="Você derrotou a criatura.";
@@ -151,9 +151,9 @@ public class Tela extends JFrame implements KeyListener {
      }
     	
     	lista=jogo.getArmas();
-    	this.atual_monstro=jogo.getCriatura();
-        if (atual_monstro==-1) {
-            monstro=false;
+    	this.atual_imagem=jogo.getCriatura();
+        if (atual_imagem==-1) {
+            imagem=false;
             
             if(jogo.hasBau()) {
             	bau=true;
@@ -174,14 +174,13 @@ public class Tela extends JFrame implements KeyListener {
         		texto=texto+" Pressione S para sair.";
             }
         }else{
-            monstro=true;
+            imagem=true;
             texto=texto+" Pressione L para lutar ou F para fugir.";
         }
         resultado=jogo.verificaResultado();
-       	int ouro=jogo.getTesouro();
-        if(jogo.getTesouro()>ouro) {
-        	if(monstro)
-        		texto+=" Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está terminando um monstro aparece.";
+        if(jogo.isTesouro()) {
+        	if(imagem)
+        		texto+=" Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está terminando um imagem aparece.";
         	else
         		texto+=" Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia.";
         }
@@ -192,10 +191,13 @@ public class Tela extends JFrame implements KeyListener {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
         	texto="Você ganhou!!! Ouro ganho:"+jogo.getTesouro();
-        	atual_monstro=5;
+        	atual_imagem=5;
+        	imagem=true;
         }
-        if(!monstro&&jogo.hasBau())
-        	atual_monstro=4;
+        if(!imagem&&jogo.isTesouro()) {
+        	atual_imagem=4;
+        	imagem=true;
+        }
     	this.repaint();
     }
 
