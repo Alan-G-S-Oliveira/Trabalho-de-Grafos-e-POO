@@ -215,7 +215,8 @@ public class Jogo {
             getJogador().getColar().aplicarEfeito(getJogador());
 
         Efeito_de_terreno efeito = ilha.getNo(getJogador().getPosição()).getEfeito();
-        aplicarEfeitos();
+        aplicarEfeitosDeTerreno();
+        aplicarStatus();
 
         //VERIFICAR SE ELE MORRE.
 
@@ -403,29 +404,40 @@ public class Jogo {
 
     }
 
-    public boolean aplicarEfeitos() {
+    public String aplicarEfeitosDeTerreno() {
 
-        for(int i = 0; i < ilha.getCriaturas().size(); i++) {
+        ArrayList<Criatura> criaturas = ilha.getCriaturas();
+        String saida = "";
+        Nos no;
 
-            Criatura aux1 = ilha.getCriaturas().get(i);
-            if(!(ilha.getCriaturas().get(i) instanceof Jogador)) {
+        for(int i = 0; i < criaturas.size(); i++) {
 
-                Efeito_de_terreno aux2 = ilha.getNo(aux1.getPosição()).getEfeito();
-                if(aux2 != null)
-                    aux2.aplicarEfeito(aux1);
+            no = ilha.getNo(criaturas.get(i));
+            if(no.getEfeito() != null) {
+
+                no.getEfeito().aplicarEfeito(criaturas.get(i));
+                if(criaturas.get(i) instanceof Jogador)
+                    saida = no.getEfeito().getNome();
 
             }
 
         }
 
-        if(ilha.getNo(ilha.getJogador().getPosição()).getEfeito() != null) {
+        return saida;
 
-            ilha.getNo(ilha.getJogador().getPosição()).getEfeito().aplicarEfeito(ilha.getJogador());
-            return true;          
+    }
+
+    public void aplicarStatus() {
+
+        Criatura criatura;
+
+        for(int i = 0; i < ilha.getCriaturas().size(); i++) {
+
+            criatura = ilha.getCriaturas().get(i);
+            if(criatura.getStatus() != null)
+                criatura.getStatus().aplicarEfeito(criatura);
 
         }
-        
-        return false;
 
     }
  
