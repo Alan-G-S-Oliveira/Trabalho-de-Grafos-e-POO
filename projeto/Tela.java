@@ -87,7 +87,7 @@ public class Tela extends JFrame implements KeyListener {
                 if(catando||monstro){
                     break;
                 }else{
-                    jogo.turno();
+                    texto+=jogo.turno();
                     break;
                 }
     		case 'f':
@@ -100,7 +100,7 @@ public class Tela extends JFrame implements KeyListener {
             	if(monstro) {
             		texto=texto+jogo.prepararBatalha(false);
             		if(aux!=jogo.getCriatura())
-            			texto+="Você derrotou a criatura";
+            			texto+="Você derrotou a criatura.";
             	}
                 break;
             case 'c':
@@ -115,7 +115,10 @@ public class Tela extends JFrame implements KeyListener {
             case 'b':
             case 'B':
             	if(bau) {
-            		jogo.itemBau();
+            		if(jogo.itemBau())
+            			texto+=" Você encontrou e equipou um colar.";
+            		else 
+            			texto+=" Ao abrir o baú uma arma caiu no chão.";
             		bau=false;
             	}
             	break;
@@ -163,9 +166,9 @@ public class Tela extends JFrame implements KeyListener {
             	int n=lista.size();
         		texto="Pressione o numero da arma para equipar ela \n";
         		for(int i=0; i<n; i++) {
-        			texto=texto+i+":"+lista.get(i).getNome()+lista.get(i).getDurabilidade()+"\n";
+        			texto=texto+i+":"+lista.get(i).getNome()+"Durabilidade:"+lista.get(i).getDurabilidade()+" ";
         		}
-        		texto=texto+" Pressione S para sair.\n";
+        		texto=texto+" Pressione S para sair.";
             }
         }else{
             monstro=true;
@@ -175,9 +178,9 @@ public class Tela extends JFrame implements KeyListener {
        	int ouro=jogo.getTesouro();
         if(jogo.getTesouro()>ouro) {
         	if(monstro)
-        		texto+=" Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está  terminando um monstro aparece";
+        		texto+=" Você encontra um bau de tesouros, e furtivamente começa coletado, mas quando está terminando um monstro aparece.";
         	else
-        		texto+=" Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia";
+        		texto+=" Você encontrou um bau de tesouros e coletou tudo o que podia carregar, hora de voltar pra praia.";
         }
         texto+=" - VIDA:"+jogo.getVidaJogador();
         texto+=" - Tesouro:"+jogo.getTesouro();
