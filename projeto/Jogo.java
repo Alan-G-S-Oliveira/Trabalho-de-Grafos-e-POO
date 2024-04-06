@@ -109,6 +109,12 @@ public class Jogo {
 
     }
 
+    public boolean isTesouro() {
+
+        return ilha.getNo(getJogador().getPosição()).isTesouro();
+
+    }
+
     public int getCriatura() {
 
         Criatura b = null;
@@ -218,7 +224,22 @@ public class Jogo {
         aplicarEfeitosDeTerreno();
         aplicarStatus();
 
-        //VERIFICAR SE ELE MORRE.
+        if(getJogador().getVida_atual() <= 0) {
+
+            ilha.getNo(getJogador().getPosição()).removeCriatura(getJogador());
+            reviveu = getJogador().reviver();
+            if(reviveu) {
+
+                pilha = pilhaCheckPoint;
+                marca = marcaCheckPoint;
+                pilhaCheckPoint = null;
+                marcaCheckPoint = null;
+
+            }
+
+            ilha.getNo(getJogador().getPosição()).addCriaturas(getJogador());
+
+        }
 
         this.tempo--;
 
@@ -259,6 +280,7 @@ public class Jogo {
 
                     if(getJogador().getVida_atual() <= 0) {
 
+                        ilha.getNo(getJogador().getPosição()).removeCriatura(getJogador());
                         reviveu = getJogador().reviver();
                         if(reviveu) {
 
