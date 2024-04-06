@@ -62,11 +62,6 @@ public class Jogo {
         
         Arma baka = getJogador().getArma();
 
-        if(baka != null)
-            System.out.println(baka.getNome());
-        else
-            System.out.println("yamete kudasai");
-
         return teste;
 
     }
@@ -225,8 +220,13 @@ public class Jogo {
 
         }
 
-        if(ilha.getNo(ilha.getJogador().getPosição()).isTesouro())
+        if(ilha.getNo(ilha.getJogador().getPosição()).isTesouro()) {
+
             ilha.getJogador().setTesouro(ilha.getJogador().getVida_atual());
+            pilha.remove(pilha.size() - 1);
+            pilha.remove(pilha.size() - 1);
+
+        }
 
         if(getJogador().getColar() != null)
             getJogador().getColar().aplicarEfeito(getJogador());
