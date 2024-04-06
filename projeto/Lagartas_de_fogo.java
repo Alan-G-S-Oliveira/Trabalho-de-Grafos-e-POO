@@ -3,9 +3,10 @@ package projeto;
 public class Lagartas_de_fogo extends Efeito_de_terreno implements Efeito{
 	public Lagartas_de_fogo() {
 		setNome("Lagartas de fogo");
-		setComment("você olha para os lados para cima e para baixo as largatas de fogo estão por todo lugar você joga elas para longe,"
-				+ " mas a sensação de queimação e insuportável, mas você se mantém em silêncio para não chamar atenção dos mostros."
-				+ "O calor criou uma queimadura que causarar dano até ela estabilizar");
+		setComment("Você olha ao redor, para cima e para baixo, as larvas de fogo estão por toda parte."
+					+" Desesperadamente, você as afasta, mas a sensação de queimação é insuportável."
+					+"Você se mantém em silêncio, temendo chamar a atenção dos monstros."
+					+" O calor intenso deixou uma queimadura que continuará a causar danos até que ela se estabilize.");
 		setDano(0);
 	}
 	public void aplicarEfeito(Criatura p){
