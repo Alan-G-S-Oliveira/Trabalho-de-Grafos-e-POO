@@ -195,7 +195,15 @@ public class Tela extends JFrame implements KeyListener {
         if(resultado==-1) {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
-        	texto="Você ganhou!!! Ouro ganho:"+jogo.getTesouro();
+        	texto="Você finalmente chega ao barco, perplexo com as criaturas que acabara de ver, quando o alívio começa a tomar conta de seu ser. Tremores gigantescos agitam as ondas do mar e um barulho estranho alcança "
+        			+ "seus ouvidos. Estacas começam a emergir da ilha e, por algum motivo desconhecido, a própria ilha começa a se erguer, revelando-se como um monstro gigante.\r\n"
+        			+ "\r\n"
+        			+ "Ela olha para você, dá meia volta e se afasta. Você percebe que é insignificante para aquela criatura colossal. Desconcertado, "
+        			+ "você verifica o tesouro que coletou e encontra uma foto peculiar: um pequeno ornitorrinco ao lado de um homem calvo com óculos de fundo de garrafa,"
+        			+ " acompanhado por uma bela moça com uma maquiagem engraçada.\r\n"
+        			+ "\r\n"
+        			+ "Sem entender nada, você retorna para casa com a certeza de que ninguém acreditará em sua história, e aquela foto estranha certamente não ajudará."
+        			+ "  Você ganhou!!! Ouro ganho:"+jogo.getTesouro();
         	atual_imagem=5;
         	imagem=true;
         }
