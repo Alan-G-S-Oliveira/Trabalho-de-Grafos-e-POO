@@ -17,18 +17,6 @@ public class Nos {
     private boolean tesouro;
     private boolean checkpoint;
 
-    //Construtor da classe
-    public Nos(Efeito_de_terreno efeito, Riqueza riqueza, boolean tesouro) {
-
-        this.efeito = efeito;
-        this.tesouro = tesouro;
-        this.riqueza = riqueza;
-        this.checkpoint = false;
-        this.criaturas = new ArrayList<>();
-        this.armas = new ArrayList<>();
-
-    }
-
     public Nos() {
 
         this.efeito = null;
@@ -58,7 +46,14 @@ public class Nos {
         return this.armas;
 
     }
-        
+
+    public ArrayList<Criatura> getCriaturas() {
+
+        return this.criaturas;
+
+    }
+     
+    //Conjunto de is
     public boolean isCheckPoint() {
 
         return this.checkpoint;
@@ -71,12 +66,6 @@ public class Nos {
 
     }
 
-    public ArrayList<Criatura> getCriaturas() {
-
-        return this.criaturas;
-
-    }
-
     //Conjunto de sets
     public void setEfeito(Efeito_de_terreno efeito) {
 
@@ -84,15 +73,28 @@ public class Nos {
 
     }
 
-    public void setRiquesa(Riqueza riqueza) {
+    public void setRiqueza(Riqueza riqueza) {
 
         this.riqueza = riqueza;
 
     }
 
+    public void setTesouro(boolean tesouro) {
+
+        this.tesouro = tesouro;
+
+    }
+
+    //adds e updates
     public void addArma(Arma arma) {
 
         this.armas.add(arma);
+
+    }
+
+    public void addCriaturas(Criatura criatura) {
+
+        this.criaturas.add(criatura);
 
     }
 
@@ -101,19 +103,8 @@ public class Nos {
         this.checkpoint = checkpoint;
 
     }
-    
-    public void setTesouro(boolean tesouro) {
 
-        this.tesouro = tesouro;
-
-    }
-    
-    public void addCriaturas(Criatura criatura) {
-
-        this.criaturas.add(criatura);
-
-    }
-
+    //Conjunto de removes
     public boolean removeCriatura(Criatura mob) {
 
         return this.criaturas.remove(mob);

@@ -47,6 +47,64 @@ public class Jogo {
 
     }
 
+    public int getTempo() {
+
+        return this.tempo;
+
+    }
+
+    public int getResultado() {
+
+        return this.resultado;
+
+    }
+
+    public Jogador getJogador() {
+
+        return this.ilha.getJogador();
+
+    }
+
+    public ArrayList<Arma> getArmas() {
+    	int no=ilha.getJogador().getPosição();
+        return this.ilha.getNo(no).getArmas();
+
+    }
+
+    public int getVidaJogador() {
+
+        return this.getJogador().getVida_atual();
+
+    }
+
+    public int getCriatura() {
+
+        Criatura b = null;
+        ArrayList<Criatura> aux = ilha.getNo(ilha.getJogador().getPosição()).getCriaturas();
+
+        for(int i = 0; i < aux.size(); i++) {
+
+            if(aux.get(i) instanceof Monstro && !aux.get(i).getBatalhou()){
+                b = aux.get(i);
+                break;
+            }
+
+        }
+
+        if(b == null)
+            return -1;
+        Monstro a= (Monstro)b;
+        if (a.getNome()=="Captain P.")
+            return 0;
+        if (a.getNome()=="Ornitohulk")
+            return 1;
+        if (a.getNome()=="Ornitorrinco super saiyajin")
+            return 2;
+        if (a.getNome()=="Ornitorrinco otorrinolaringologista")
+            return 3;
+        return -1;
+    }
+
     public boolean hasBau() {
 
         boolean teste;
@@ -85,79 +143,9 @@ public class Jogo {
 
     }
 
-    public int getTempo() {
-
-        return this.tempo;
-
-    }
-
-    public int getResultado() {
-
-        return this.resultado;
-
-    }
-
-    public Jogador getJogador() {
-
-        return this.ilha.getJogador();
-
-    }
-
-    public ArrayList<Arma> getArmas() {
-    	int no=ilha.getJogador().getPosição();
-        return this.ilha.getNo(no).getArmas();
-
-    }
-
-    public int getVidaJogador() {
-
-        return this.getJogador().getVida_atual();
-
-    }
-
     public boolean isTesouro() {
 
         return ilha.getNo(getJogador().getPosição()).isTesouro();
-
-    }
-
-    public int getCriatura() {
-
-        Criatura b = null;
-        ArrayList<Criatura> aux = ilha.getNo(ilha.getJogador().getPosição()).getCriaturas();
-
-        for(int i = 0; i < aux.size(); i++) {
-
-            if(aux.get(i) instanceof Monstro && !aux.get(i).getBatalhou()){
-                b = aux.get(i);
-                break;
-            }
-
-        }
-
-        if(b == null)
-            return -1;
-        Monstro a= (Monstro)b;
-        if (a.getNome()=="Captain P.")
-            return 0;
-        if (a.getNome()=="Ornitohulk")
-            return 1;
-        if (a.getNome()=="Ornitorrinco super saiyajin")
-            return 2;
-        if (a.getNome()=="Ornitorrinco otorrinolaringologista")
-            return 3;
-        return -1;
-    }
-
-    //ACHO QUE TÁ DE BOA ESSE MÉTODO. QUALQUER COISA MUDO DEPOIS.
-    public ArrayList<Integer> copy() {
-
-        ArrayList<Integer> saida = new ArrayList<>();
-        
-        for(int i = 0; i < pilha.size(); i++)
-            saida.add(pilha.get(i));
-
-        return saida;
 
     }
 
@@ -189,14 +177,6 @@ public class Jogo {
             return "";
 
         int v;
-
-        System.out.println(ilha.getJogador().getTesouro() == 0);
-        System.out.println(ilha.getJogador().getPosição());
-        System.out.println(pilha);
-        for(int i: marca)
-            System.out.print(i + " ");
-        System.out.println();
-        System.out.println("Vida: " + getVidaJogador());
 
         if(ilha.getJogador().getTesouro() == 0) {
 
@@ -326,14 +306,6 @@ public class Jogo {
         int x = mob1.getPosição();
         String saida = "";
 
-        if(mob1 instanceof Jogador || mob2 instanceof Jogador) {
-
-            System.out.println("Vida antes da batalha:");
-            System.out.println(mob1.getVida_atual());
-            System.out.println(mob2.getVida_atual());
-
-        }
-
         for(int i = 0; i < 3; i++) {
             saida += infoBatalha(mob1, mob2);
 
@@ -390,15 +362,20 @@ public class Jogo {
             }
         }
 
-        if(mob1 instanceof Jogador || mob2 instanceof Jogador) {
-
-            System.out.println("Vida depois da batalha:");
-            System.out.println(mob1.getVida_atual());
-            System.out.println(mob2.getVida_atual());
-
-        }
-
+        tempo--;
+        
         return saida;
+
+    }
+
+    public int verificaResultado() {
+
+        if(tempo <= 0 || !this.reviveu)
+            return -1;
+        else if(getJogador().getPosição() == 0 && getJogador().getTesouro() != 0)
+            return 1;
+        else
+            return 0;
 
     }
 
@@ -437,7 +414,7 @@ public class Jogo {
 
     }
 
-    public String aplicarEfeitosDeTerreno() {
+    private String aplicarEfeitosDeTerreno() {
 
         ArrayList<Criatura> criaturas = ilha.getCriaturas();
         String saida = "";
@@ -459,7 +436,7 @@ public class Jogo {
 
     }
 
-    public void aplicarStatus() {
+    private void aplicarStatus() {
 
         Criatura criatura;
 
@@ -566,14 +543,14 @@ public class Jogo {
 
     }
 
-    public int verificaResultado() {
+    private ArrayList<Integer> copy() {
 
-        if(tempo <= 0 || !this.reviveu)
-            return -1;
-        else if(getJogador().getPosição() == 0 && getJogador().getTesouro() != 0)
-            return 1;
-        else
-            return 0;
+        ArrayList<Integer> saida = new ArrayList<>();
+        
+        for(int i = 0; i < pilha.size(); i++)
+            saida.add(pilha.get(i));
+
+        return saida;
 
     }
 

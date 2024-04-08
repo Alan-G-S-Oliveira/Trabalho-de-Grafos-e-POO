@@ -21,7 +21,6 @@ public class Grafo {
     private Jogador jogador;
     private int totalVertices;
     
-    //DEPOIS TENHO QUE MODULARIZAR ESSE CONTRUTOR MELHOR PARA FICAR MAIS LEGÍVEL.
     @SuppressWarnings("unchecked")
     public Grafo(String caminhoArquivo) throws FileNotFoundException {
 
@@ -71,12 +70,6 @@ public class Grafo {
     public ArrayList<Integer> getAdjacencias(int posicao) {
 
         return adjacencias[posicao];
-
-    }
-
-    public void updateNo(Nos no, int posicao) {
-
-        this.nos[posicao] = no;
 
     }
 
@@ -149,7 +142,6 @@ public class Grafo {
         posicaoAtual = mob.getPosição();        //Pega sua posição atual.
         nos[posicaoAtual].removeCriatura(mob);  //Remove a criatura do seu nó atual.
 
-        //ARRUMA TUA PARTE PEDRO.
         if(mob instanceof Monstro)
             novaPosicao = ((Monstro) (mob)).movimentar(this.adjacencias[mob.getPosição()]);   //Movimenta caso for monstro.  
         else
@@ -194,8 +186,8 @@ public class Grafo {
 
     }
 
-    //Em tese essa parte sorteia aonde o tesouro vai estar.
-    //Ele pode está na última posição ou em uma de suas adjacências.
+    //Sorteia onde o tesouro vai estar.
+    //Ele pode estar na última posição ou em uma de suas adjacências.
     private void posicionaTesouro(Random num) {
 
         int x = num.nextInt(adjacencias[totalVertices - 1].size() + 1);
