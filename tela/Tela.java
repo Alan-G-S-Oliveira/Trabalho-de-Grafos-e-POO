@@ -192,6 +192,7 @@ public class Tela extends JFrame implements KeyListener {
         texto+=" - VIDA:"+jogo.getVidaJogador();
         texto+=" - Tesouro:"+jogo.getTesouro();
         texto+=" - Posição atual:"+jogo.getJogador().getPosição();
+        texto+=" - Tempo:"+jogo.getTempo();
         if(resultado==-1) {
         	texto="Você perdeu!!!";
         }else if(resultado==1){
