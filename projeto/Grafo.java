@@ -214,7 +214,7 @@ public class Grafo {
             if(procuraVetor(checkpoints, i))
                 this.nos[i].updateCheckPoint(true);
             if(procuraVetor(riquezas, i))
-                this.nos[i].setRiquesa(new Bau());
+                this.nos[i].setRiqueza(new Bau());
 
             if(num.nextInt(10) < 3){
 
