@@ -164,6 +164,9 @@ public class Tela extends JFrame implements KeyListener {
             	bau=true;
             	texto+=" Você achou um bau, pressione B para abri-lo.";
             }
+            else{
+                bau=false;
+            }
             if(!catando) {
             	texto= texto+" Pressione a tecla espaço para andar entre os pontos da ilha.";
             	if(lista.size()>0) {
